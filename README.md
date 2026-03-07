@@ -17,23 +17,36 @@ uv sync
 ### Segment a string
 
 ```python
-from graphemes_plusplus import Graphemizer
+>>> from graphemes_plusplus import Graphemizer
+>>> g = Graphemizer("ஸ்ரீ மதி")
+>>> g.graphemes
+['ஸ்ரீ', ' ', 'ம', 'தி']
+>>> len(g)
+4
+>>> for grapheme in g:
+...     print(grapheme)
+ஸ்ரீ
 
-g = Graphemizer("some text")
+ம
+தி
+```
 
-g.graphemes       # list of grapheme clusters
-len(g)            # number of graphemes
-list(g)           # convert to list
+### Compute distance
 
-for grapheme in g:
-    print(grapheme)
+```python
+>>> from graphemes_plusplus import levenshtein, hamming
+>>> levenshtein("ஸ்ரீ", "ஸ்ரி")
+1
+>>> hamming("ஸ்ரீ", "ஸ்ரீ")
+0
 ```
 
 ### Normalize a file
 
 ```python
-from graphemes_plusplus.utils import normalize_file
-
-normalize_file("input.txt")                        # saves as input_normalized.txt
-normalize_file("input.txt", "output.txt")          # custom output path
+>>> from graphemes_plusplus.utils import normalize_file
+>>> normalize_file("input.txt")
+'input_normalized.txt'
+>>> normalize_file("input.txt", "output.txt")
+'output.txt'
 ```
