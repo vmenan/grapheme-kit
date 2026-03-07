@@ -7,7 +7,7 @@ A minimalistic grapheme segmentation library for Tamil and Sinhala scripts.
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/your-username/graphemes-plusplus.git
+git clone https://github.com/vmenan/graphemes_plusplus.git
 cd graphemes-plusplus
 uv sync
 ```
