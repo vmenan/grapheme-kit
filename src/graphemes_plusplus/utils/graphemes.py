@@ -1,3 +1,5 @@
+import string
+
 import grapheme
 
 
@@ -27,7 +29,6 @@ class GraphemeSplitter:
         original_clusters = list(grapheme.graphemes(string))
         result = []
         i = 0
-
         while i < len(original_clusters):
             current = original_clusters[i]
 

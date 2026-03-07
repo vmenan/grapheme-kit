@@ -30,6 +30,5 @@ class Graphemizer:
 
         # 2. Split
         graphemes = self.splitter.split(normalized_text)
-
         return graphemes
 
