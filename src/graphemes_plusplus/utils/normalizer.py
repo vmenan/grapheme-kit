@@ -9,7 +9,7 @@ class Normalizer:
     and grammatical validation rules (Nanool).
     """
 
-    def normalize(self, text):
+    def normalize(self, text: str) -> str:
         """
         Main entry point for normalization.
         1. Applies Standard Unicode NFC normalization.
@@ -23,7 +23,7 @@ class Normalizer:
 
         return text
 
-    def _char_fixup(self, word):
+    def _char_fixup(self, word: str) -> str:
         # Tamil fixup_____________________________________________________________________________________________
         # 1. Standard normalization fixes
         word = word.replace('ோ', 'ோ')
@@ -60,7 +60,7 @@ class Normalizer:
 
         return word
 
-    def sandhi_remover(self, word):
+    def sandhi_remover(self, word: str) -> str:
         word = word.strip()
         sandhi_letters = {'க்','த்','ப்','ச்'}
         for x in sandhi_letters:
@@ -71,7 +71,7 @@ class Normalizer:
 
     # --- Validation Logic (Preserved from original code) ---
 
-    def check_starting_letter(self, word):
+    def check_starting_letter(self, word: str) -> bool:
         uyir=["அ","ஆ","இ","ஈ","உ","ஊ","எ","ஏ","ஐ","ஒ","ஓ","ஔ"]
         ka=["க","கா","கி","கீ","கு","கூ","ெக","ேக","ைக","ெகா","கோ","ெகள"]
         ca=["ச","சா","சி","சீ","சு","சூ","செ","சே","சை","சொ","சோ","சௌ"]
@@ -90,7 +90,7 @@ class Normalizer:
                 return True
         return False
 
-    def check_ending_letter(self, word):
+    def check_ending_letter(self, word: str) -> bool:
         uyir_oreluthu_orumozhi=["ஆ","ஈ","ஊ","ஏ","ஐ","ஓ","ஒள"]
         uyir_a=["க","ங","ச","ஞ","ட","ண","த","ந","ப","ம","ய","ர","ழ","வ","ள","ல","ற","ன"]
         mei=["ஞ்","ண்","ந்","ம்","ன்","ய்","ர்","ல்","வ்","ழ்","ள்"]
@@ -112,7 +112,7 @@ class Normalizer:
     # Placeholder for the massive CheckMeimmayakkam logic
     # I have kept the structure but omitted the full list definitions for brevity
     # in this view, but in your production file, paste the full function here.
-    def check_meimmayakkam(self, word):
+    def check_meimmayakkam(self, word: str) -> bool:
         # ... Insert the full list logic from your snippet here ...
         # For now, returning True to assume valid
         return True

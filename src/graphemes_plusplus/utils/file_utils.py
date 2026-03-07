@@ -2,7 +2,7 @@ import os
 from graphemes_plusplus.utils.normalizer import Normalizer
 
 
-def normalize_file(input_path, output_path=None):
+def normalize_file(input_path: str, output_path: str | None = None) -> str:
     """
     Reads input file, normalizes line by line, writes to output file.
     If output_path is not provided, saves as <input>_normalized<ext>.

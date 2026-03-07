@@ -9,11 +9,11 @@ class GraphemeSplitter:
     Standardized Grapheme Clustering class.
     Extends 'grapheme' library to handle "க்ஷ", "ஸ்ரீ", "ஶ்ரீ" and sinhala ZWJ.
     """
-    def __init__(self,grapheme_backbone="grapheme"):
+    def __init__(self, grapheme_backbone: str = "grapheme") -> None:
        print(f"Intialized")
 
     @staticmethod
-    def split(string):
+    def split(string: str) -> list[str]:
         """
         Returns a list of grapheme clusters from the given string.
         """
