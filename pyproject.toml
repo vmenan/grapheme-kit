@@ -9,6 +9,7 @@ authors = [
 requires-python = ">=3.14"
 dependencies = [
     "grapheme>=0.6.0",
+    "sacrebleu>=2.6.0",
     "textdistance>=4.6.3",
 ]
 
