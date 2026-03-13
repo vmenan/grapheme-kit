@@ -22,3 +22,6 @@ def hamming(s1: str, s2: str) -> int:
 if __name__ == "__main__":
     print(levenshtein("ஸ்ரீ", "ஸ்ரி"))
     print(hamming("ஸ்ரீ", "ஸ்ரீ"))
+    print(hamming("රැ", "රැහ"))
+    print(levenshtein("ක්‍රම", "කම"))
+

@@ -2,7 +2,8 @@ from typing import List, Sequence, Optional, Dict
 from collections import Counter
 from sacrebleu.metrics.chrf import CHRF
 from sacrebleu.metrics.helpers import extract_word_ngrams
-
+from distance import levenshtein
+from graphemizer import Graphemizer
 
 def extract_all_grapheme_ngrams(
     graphemes: List[str], max_order: int, include_whitespace: bool = False) -> List[Counter]:
@@ -107,3 +108,7 @@ class GraphemeCHRF(CHRF):
 
         return best_stats
  
+def cer(reference, hypothesis):
+    distance = levenshtein(reference, hypothesis)
+    length=len(list(Graphemizer(reference)))
+    return distance / length if length > 0 else 0
