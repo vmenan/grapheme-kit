@@ -1,13 +1,14 @@
-from typing import List, Sequence, Optional, Dict
+from typing import List, Sequence, Optional, Dict, Union
 from collections import Counter
 from sacrebleu.metrics.chrf import CHRF
 from sacrebleu.metrics.helpers import extract_word_ngrams
+from graphemes_plusplus.graphemizer import Graphemizer
 
 
 def extract_all_grapheme_ngrams(
     graphemes: List[str], max_order: int, include_whitespace: bool = False) -> List[Counter]:
     """Extracts all grapheme n-grams at once for convenience.
-    
+
     :param graphemes: A list of grapheme clusters (acting as characters).
     :param max_order: The maximum order of the n-grams.
     :param include_whitespace: If True, keep whitespace graphemes.
@@ -26,55 +27,58 @@ def extract_all_grapheme_ngrams(
 
 
 class GraphemeCHRF(CHRF):
-    """Computes the chrF(++) metric given hypotheses and references at the grapheme level.
-    Instead of passing strings, you must pass Lists of Strings where each string
-    is a grapheme cluster.
+    """Computes the chrF(++) metric at the grapheme level.
+
+    Accepts raw text strings and automatically segments them into grapheme
+    clusters using Graphemizer before computing n-gram statistics.
+
+    This ensures proper handling of complex scripts like Tamil, Sinhala,
+    and other Indic languages where a single visual character may consist
+    of multiple Unicode code points.
     """
-    
-    def _check_sentence_score_args(self, hyp: List[str], refs: Sequence[List[str]]):
-        prefix = self.__class__.__name__
-        err_msg = None
 
-        if not isinstance(hyp, list):
-            err_msg = "The argument `hyp` should be a list of grapheme strings."
-        elif not isinstance(refs, Sequence):
-            err_msg = "The argument `refs` should be a sequence of lists of graphemes."
+    def _graphemize(self, text: str) -> List[str]:
+        """Convert a text string to a list of grapheme clusters.
 
-        if err_msg:
-            raise TypeError(f"{prefix}: {err_msg}")
+        :param text: Input text string.
+        :return: List of grapheme clusters.
+        """
+        return list(Graphemizer(text))
 
-    def _check_corpus_score_args(self, hyps: Sequence[List[str]], refs: Optional[Sequence[Sequence[List[str]]]]):
-        """Bypass the strict string check to allow sequences of lists of graphemes."""
-        prefix = self.__class__.__name__
-        err_msg = None
+    def _preprocess_segment(self, sent: Union[str, List[str]]) -> List[str]:
+        """Given a string or list of graphemes, graphemize if needed and apply optional lowercasing.
 
-        if not isinstance(hyps, Sequence):
-            err_msg = "`hyps` should be a sequence of lists of graphemes."
-        
-        if refs is not None and not isinstance(refs, Sequence):
-            err_msg = "`refs` should be a sequence of sequence of lists of graphemes."
+        :param sent: Input segment (string or list of graphemes).
+        :return: List of grapheme clusters.
+        """
+        # Convert string to graphemes if needed
+        if isinstance(sent, str):
+            graphemes = self._graphemize(sent)
+        else:
+            graphemes = sent
 
-        if err_msg:
-            raise TypeError(f"{prefix}: {err_msg}")
+        return [g.lower() for g in graphemes] if self.lowercase else graphemes
 
-    def _preprocess_segment(self, sent: List[str]) -> List[str]:
-        """Given a list of graphemes, apply optional lowercasing."""
-        return [g.lower() for g in sent] if self.lowercase else sent
-
-    def _remove_punctuation_for_words(self, sent: List[str]) -> List[str]:
+    def _remove_punctuation_for_words(self, graphemes: List[str]) -> List[str]:
         """Reconstructs the sentence and separates out punctuations from words."""
-        reconstructed_string = "".join(sent)
+        reconstructed_string = "".join(graphemes)
         return super()._remove_punctuation(reconstructed_string)
 
-    def _extract_reference_info(self, refs: Sequence[List[str]]) -> Dict[str, List[List[Counter]]]:
-        """Given a list of reference grapheme lists, extract the grapheme and word n-grams."""
+    def _extract_reference_info(self, refs: Sequence[str]) -> Dict[str, List[List[Counter]]]:
+        """Given a list of reference strings, extract the grapheme and word n-grams.
+
+        :param refs: A sequence of reference strings.
+        :return: Dictionary containing reference n-grams.
+        """
         ngrams = []
 
         for ref in refs:
-            stats = extract_all_grapheme_ngrams(ref, self.char_order, self.whitespace)
+            # Preprocess converts string to graphemes
+            ref_graphemes = self._preprocess_segment(ref)
+            stats = extract_all_grapheme_ngrams(ref_graphemes, self.char_order, self.whitespace)
 
             if self.word_order > 0:
-                ref_words = self._remove_punctuation_for_words(ref)
+                ref_words = self._remove_punctuation_for_words(ref_graphemes)
                 for n in range(self.word_order):
                     stats.append(extract_word_ngrams(ref_words, n + 1))
 
@@ -82,16 +86,23 @@ class GraphemeCHRF(CHRF):
 
         return {'ref_ngrams': ngrams}
 
-    def _compute_segment_statistics(self, hypothesis: List[str], ref_kwargs: Dict) -> List[int]:
-        """Given a hypothesis grapheme list and reference n-grams, returns best match."""
+    def _compute_segment_statistics(self, hypothesis: str, ref_kwargs: Dict) -> List[int]:
+        """Given a hypothesis string and reference n-grams, returns best match statistics.
+
+        :param hypothesis: Hypothesis string.
+        :param ref_kwargs: Dictionary with precomputed reference n-grams.
+        :return: List of match statistics.
+        """
         best_stats = []
         best_f_score = -1.0
 
+        # Preprocess converts string to graphemes
+        hyp_graphemes = self._preprocess_segment(hypothesis)
         all_hyp_ngrams = extract_all_grapheme_ngrams(
-            hypothesis, self.char_order, self.whitespace)
+            hyp_graphemes, self.char_order, self.whitespace)
 
         if self.word_order > 0:
-            hwords = self._remove_punctuation_for_words(hypothesis)
+            hwords = self._remove_punctuation_for_words(hyp_graphemes)
             _range = range(1, self.word_order + 1)
             all_hyp_ngrams.extend([extract_word_ngrams(hwords, n) for n in _range])
 
@@ -106,4 +117,3 @@ class GraphemeCHRF(CHRF):
                 best_stats = stats
 
         return best_stats
- 
