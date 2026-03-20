@@ -2,6 +2,7 @@ from typing import List, Sequence, Optional, Dict, Union
 from collections import Counter
 from sacrebleu.metrics.chrf import CHRF
 from sacrebleu.metrics.helpers import extract_word_ngrams
+from graphemes_plusplus.distance import levenshtein
 from graphemes_plusplus.graphemizer import Graphemizer
 
 
@@ -117,3 +118,21 @@ class GraphemeCHRF(CHRF):
                 best_stats = stats
 
         return best_stats
+
+def CER(hypothesis: str, reference: str) -> float:
+    """Computes the Character Error Rate (CER) between a hypothesis and reference string.
+
+    CER is defined as the Levenshtein distance at the grapheme level divided by the number of graphemes in the reference.
+
+    :param hypothesis: The hypothesis string.
+    :param reference: The reference string.
+    :return: The CER value as a float.
+    """
+    hyp_graphemes = list(Graphemizer(hypothesis))
+    ref_graphemes = list(Graphemizer(reference))
+
+    if len(ref_graphemes) == 0:
+        return 0.0 if len(hyp_graphemes) == 0 else 1.0
+
+    distance = levenshtein(hypothesis, reference)
+    return distance / len(ref_graphemes)
