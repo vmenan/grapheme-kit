@@ -1,5 +1,5 @@
 import pytest
-from graphemes_plusplus.metric import GraphemeCHRF
+from graphemes_plusplus.metric import GraphemeCHRF, CER
 
 
 @pytest.fixture
@@ -142,6 +142,35 @@ class TestGraphemeCHRF:
         """Ensure the metric correctly registers the word_order parameter."""
         assert hasattr(chrf_pp, 'word_order')
         assert chrf_pp.word_order == 2
+
+
+class TestCER:
+    """Tests for grapheme-aware Character Error Rate."""
+
+    def test_cer_perfect_match(self):
+        """Identical strings should have zero CER."""
+        assert CER("வணக்கம்", "வணக்கம்") == 0.0
+        assert CER("සිංහල", "සිංහල") == 0.0
+
+    def test_cer_single_substitution(self):
+        """One substitution over three reference graphemes gives CER 1/3."""
+        assert CER("කනවා", "කනව") == pytest.approx(1 / 3, rel=1e-9)
+
+    def test_cer_empty_reference_cases(self):
+        """Edge behavior when reference is empty should be well-defined."""
+        assert CER("", "") == 0.0
+        assert CER("ක", "") == 1.0
+
+    def test_cer_grapheme_aware(self):
+        """Tamil ligatures should be compared by graphemes, not code points."""
+        # "ஸ்ரீ" is 1 grapheme and "ஸ்ரி" is 2 graphemes; distance is 2 over 2 refs.
+        assert CER("ஸ்ரீ", "ஸ்ரி") == pytest.approx(1.0, rel=1e-9)
+
+    def test_cer_complex_conjuncts(self):
+        """Complex Sinhala conjuncts should be handled correctly."""
+        assert CER("ක්‍රි", "ක්‍රි") == 0.0
+        assert CER("ක්‍රමය", "ක්මය") == pytest.approx(1 / 3, rel=1e-9)
+    
 
 
 if __name__ == "__main__":
