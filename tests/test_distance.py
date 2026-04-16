@@ -38,6 +38,8 @@ class TestHamming:
 
 	def test_hamming_unequal_grapheme_lengths(self):
 		assert hamming("එවන්න", "") == 4
+	def test_hamming_complex_conjuncts(self):
+		assert hamming("ක්‍රමය", "ක්මය")==1
 
 
 if __name__ == "__main__":
