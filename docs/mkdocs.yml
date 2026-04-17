@@ -1,0 +1,69 @@
+site_name: graphemes++
+site_description: A minimalistic grapheme segmentation library for Tamil and Sinhala scripts
+site_author: vmenan
+site_url: https://vmenan.github.io/graphemes_plusplus/
+
+repo_name: vmenan/graphemes_plusplus
+repo_url: https://github.com/vmenan/graphemes_plusplus
+
+theme:
+  name: material
+  font:
+    text: Inter
+    code: JetBrains Mono
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: white
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions:
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - tables
+  - fenced_code
+  - admonition
+  - attr_list
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.superfences
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: getting-started/installation.md
+    - Quick Start: getting-started/quickstart.md
+  - API Reference:
+    - Graphemizer: api/graphemizer.md
+    - Decomposer: api/decomposer.md
+    - Distance: api/distance.md
+    - Metrics: api/metric.md
+    - Utilities: api/utils.md
+  - User Guide:
+    - Tamil Scripts: user-guide/tamil.md
+    - Sinhala Scripts: user-guide/sinhala.md
+    - Evaluation Metrics: user-guide/evaluation.md
+
+copyright: Copyright &copy; 2025 - 2026 vmenan

@@ -5,3 +5,6 @@ __pycache__/
 dist/
 build/
 .pytest_cache/
+.plan/docs/site/
+docs/site/
+.plan/
