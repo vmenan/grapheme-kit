@@ -96,6 +96,43 @@ class Decomposer:
 
         return new_string
 
+class Composer:
+    """
+    A class to handle the grapheme composition for Sinhala and Tamil text.
+    """
+
+    SINHALA_VOWELS = [
+        'අ', 'ආ', 'ඇ', 'ඈ', 'ඉ', 'ඊ', 'උ', 'ඌ',
+        'ඍ', 'ඎ', 'එ', 'ඒ', 'ඓ', 'ඔ', 'ඕ', 'ඖ',
+        'අං', 'අඃ',
+    ]
+
+    SINHALA_ACCENT_SYMBOLS = [
+        '', 'ා', 'ැ', 'ෑ', 'ի', 'ී', 'ු', 'ූ', 'ෘ',
+        'ෲ', 'ෙ', 'ේ', 'ෛ', 'ො', 'ෝ', 'ෞ',
+        'ං', 'ඃ'
+    ]
+
+    # specifc for sinhala
+    ZWJ_CHARS = ['ක්ව්', 'ක්ෂ්', 'ග්ධ්', 'ට්ඨ්', 'ත්ව්', 'ත්ථ්', 'ද්ධ්', 'න්ථ්', 'න්ද්', 'න්ධ්', 'ර්', 'ය්']
+
+    TAMIL_VOWELS = ["அ", "ஆ", "இ", "ஈ", "உ", "ஊ", "எ", "ஏ", "ஐ", "ஒ", "ஓ", "ஔ"]
+    TAMIL_ACCENT_SYMBOLS = ["", "ா", "ி", "ீ", "ு", "ூ", "ெ", "ே", "ை", "ொ", "ோ", "ௌ"]
+
+    @staticmethod
+    def _is_sinhala(chars: str) -> bool:
+        """Check if all characters in the string are Sinhala characters or ZWJ based on Unicode range."""
+        if not chars:
+            return False
+        return all('\u0D80' <= c <= '\u0DFF' or c == '\u200d' for c in chars)
+
+    @staticmethod
+    def _is_tamil(chars: str) -> bool:
+        """Check if all characters in the string are Tamil characters or ZWJ based on Unicode range."""
+        if not chars:
+            return False
+        return all('\u0B80' <= c <= '\u0BFF' or c == '\u200d' for c in chars)
+
     @classmethod
     def _compose_tamil_character(cls, mei: str, uyir: str) -> str:
         if not mei or mei[-1] != '்':
@@ -167,4 +204,4 @@ def decompose(text: str) -> str:
     return Decomposer.decompose(text)
 
 def compose(text: str) -> str:
-    return Decomposer.compose(text)
+    return Composer.compose(text)

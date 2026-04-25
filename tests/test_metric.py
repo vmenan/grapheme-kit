@@ -1,5 +1,7 @@
+import math
+
 import pytest
-from graphemes_plusplus.metric import GraphemeCHRF
+from graphemes_plusplus.metric import GraphemeCHRF, CER, BPC, character_ngram_fscore
 
 
 @pytest.fixture
@@ -142,6 +144,85 @@ class TestGraphemeCHRF:
         """Ensure the metric correctly registers the word_order parameter."""
         assert hasattr(chrf_pp, 'word_order')
         assert chrf_pp.word_order == 2
+
+
+class TestCER:
+    """Tests for grapheme-aware Character Error Rate."""
+
+    def test_cer_perfect_match(self):
+        """Identical strings should have zero CER."""
+        assert CER("வணக்கம்", "வணக்கம்") == 0.0
+        assert CER("සිංහල", "සිංහල") == 0.0
+
+    def test_cer_single_substitution(self):
+        """One substitution over three reference graphemes gives CER 1/3."""
+        assert CER("කනවා", "කනව") == pytest.approx(1 / 3, rel=1e-9)
+
+    def test_cer_empty_reference_cases(self):
+        """Edge behavior when reference is empty should be well-defined."""
+        assert CER("", "") == 0.0
+        assert CER("ක", "") == 1.0
+
+    def test_cer_grapheme_aware(self):
+        """Tamil ligatures should be compared by graphemes, not code points."""
+        # "ஸ்ரீ" is 1 grapheme and "ஸ்ரி" is 2 graphemes; distance is 2 over 2 refs.
+        assert CER("ஸ்ரீ", "ஸ்ரி") == pytest.approx(1.0, rel=1e-9)
+
+    def test_cer_complex_conjuncts(self):
+        """Complex Sinhala conjuncts should be handled correctly."""
+        assert CER("ක්‍රි", "ක්‍රි") == 0.0
+        assert CER("ක්‍රමය", "ක්මය") == pytest.approx(1 / 3, rel=1e-9)
+
+
+class Testcharacter_ngram_fscore:
+    def test_perfect_match(self):
+        assert character_ngram_fscore("ප්‍රධාන", "ප්‍රධාන") == 1.0
+
+
+    def test_complete_mismatch(self):
+        assert character_ngram_fscore("ප්‍රධාන", "පදය") == 0.0
+
+
+    def test_partial_overlap(self):
+        assert character_ngram_fscore("ආචාර්ය්‍ය", "ආචාරය්‍යා") == pytest.approx(1 / 3, rel=1e-9)
+
+    def test_trigram_match(self):
+        assert character_ngram_fscore("අධ්‍යාපනික", "අධ්‍යාපනික", n=3) == 1.0
+
+    def test_reference_too_short_for_ngram(self):
+        assert character_ngram_fscore("යනවා", "ය", n=2) == 0.0
+
+    def test_both_too_short_for_ngram(self):
+        assert character_ngram_fscore("ර", "ර", n=2) == 1.0
+
+    def test_grapheme_aware_single_vs_split_form(self):
+        assert character_ngram_fscore("ஸ்ரீ", "ஸ்ரி", n=1) == 0.0
+
+
+class TestBPC:
+    def test_perfect_match(self):
+        assert BPC("දැනුම", "දැනුම") == pytest.approx(0.1520030934, rel=1e-9)
+
+
+    def test_complete_mismatch(self):
+        assert BPC("දැනුම", "විද්‍යා") == pytest.approx(3.3219280949, rel=1e-9)
+
+
+    def test_empty_reference_cases(self):
+        assert BPC("", "") == 0.0
+        assert BPC("දැනුම", "") == 1.0
+
+    def test_single_mismatch(self):
+        expected = -((3 * math.log2(0.9)) + math.log2(0.1)) / 4
+        assert BPC("අර්ථය", "අර්තය") == pytest.approx(expected, rel=1e-9)
+
+    def test_short_hypothesis_treated_as_mismatch_tail(self):
+        expected = -((2 * math.log2(0.9)) + (2 * math.log2(0.1))) / 4
+        assert BPC("කර", "කරන්න") == pytest.approx(expected, rel=1e-9)
+
+    def test_grapheme_aware_perfect_match(self):
+        assert BPC("ஸ்ரீ", "ஸ்ரீ") == pytest.approx(-math.log2(0.9), rel=1e-9)
+    
 
 
 if __name__ == "__main__":
