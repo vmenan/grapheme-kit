@@ -1,6 +1,6 @@
 # Decomposer
 
-The `Decomposer` class handles grapheme decomposition and composition for Sinhala and Tamil text. It encapsulates language-specific phonetic rules, enabling character-level transformations needed for NLP tokenization and metric evaluation.
+The `Decomposer` class handles grapheme decomposition for Sinhala and Tamil text. It encapsulates language-specific phonetic rules, enabling character-level transformations needed for NLP tokenization and metric evaluation.
 
 ## Class Definition
 
@@ -33,24 +33,6 @@ decompose(text: str) → str
 'க்ஆ'  # consonant base + vowel
 ```
 
-### `compose(text: str) → str`
-
-Composes a decomposed sequence back into standard grapheme clusters.
-
-```python
-compose(text: str) → str
-```
-
-| Parameter | Type | Description |
-|---|---|---|
-| `text` | `str` | Decomposed phonetic sequence |
-| **Returns** | `str` | Recomposed standard text |
-
-```python
->>> from graphemes_plusplus import compose
->>> compose("க்ஆ")
-'கா'
-```
 
 ## How Decomposition Works
 
@@ -104,4 +86,5 @@ The `Decomposer` automatically detects the script using Unicode ranges:
 ## See Also
 
 - [Graphemizer](graphemizer.md) - Used internally for initial segmentation
+- [Composer](composer.md) - Used for recomposing standard graphemes
 - [Distance](distance.md) - Uses decomposition for distance computation

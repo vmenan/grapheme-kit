@@ -58,9 +58,9 @@ nav:
   - API Reference:
     - Graphemizer: api/graphemizer.md
     - Decomposer: api/decomposer.md
+    - Composer: api/composer.md
     - Distance: api/distance.md
     - Metrics: api/metric.md
-    - Utilities: api/utils.md
   - User Guide:
     - Tamil Scripts: user-guide/tamil.md
     - Sinhala Scripts: user-guide/sinhala.md

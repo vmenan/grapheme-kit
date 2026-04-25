@@ -98,6 +98,7 @@ graph LR
 >
 ## See Also
 
-- [Normalizer](utils.md) - The normalization component used internally
-- [GraphemeSplitter](utils.md) - The splitting component used internally
+- [Decomposer](decomposer.md) - Decompose graphemes into phonetic sequences
+- [Composer](composer.md) - Recompose standard graphemes from phonetic sequences
 - [Distance Functions](distance.md) - Use graphemes for distance computation
+- [Evaluation Metrics](metric.md) - Metrics for NLP evaluation using graphemes

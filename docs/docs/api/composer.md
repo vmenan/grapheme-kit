@@ -1,0 +1,88 @@
+# Composer
+
+The `Composer` class handles grapheme composition for Sinhala and Tamil text. It enables the recomposition of standard grapheme clusters from decomposed phonetic sequences.
+
+## Class Definition
+
+```python
+class Composer
+```
+
+**Module:** `graphemes_plusplus.decomposer`
+
+All methods are `@classmethod` - no instantiation required.
+
+## Functions
+
+### `compose(text: str) → str`
+
+Composes a decomposed sequence back into standard grapheme clusters.
+
+```python
+compose(text: str) → str
+```
+
+| Parameter | Type | Description |
+|---|---|---|
+| `text` | `str` | Decomposed phonetic sequence |
+| **Returns** | `str` | Recomposed standard text |
+
+```python
+>>> from graphemes_plusplus import compose
+>>> compose("க்ஆ")
+'கா'
+```
+
+## How Composition Works
+
+### Tamil
+
+A sequence of a **mei** (consonant base + pulli) and an **uyir** (vowel) is merged back into a single grapheme:
+
+| Mei | Uyir | → | Output |
+|---|---|---|---|
+| க் | அ | → | க |
+| க் | ஆ | → | கா |
+| க் | இ | → | கி |
+| க் | உ | → | கு |
+
+### Sinhala
+
+Sinhala consonant bases and vowels are similarly merged:
+
+| Base | Vowel | → | Output |
+|---|---|---|---|
+| ක් | අ | → | ක |
+| ක් | ආ | → | කා |
+| ක් | ඇ | → | කැ |
+
+## Language Detection
+
+The `Composer` automatically detects the script using Unicode ranges:
+
+| Script | Unicode Range |
+|---|---|
+| Tamil | `U+0B80` – `U+0BFF` |
+| Sinhala | `U+0D80` – `U+0DFF` |
+
+> **Mixed scripts**
+> Non-Tamil and non-Sinhala characters (English, punctuation, numbers) pass through unchanged during composition.
+>
+
+## Class Constants
+
+### Tamil Constants
+
+- **`TAMIL_VOWELS`** - 12 Tamil vowels (உயிர் எழுத்துக்கள்): அ, ஆ, இ, ஈ, உ, ஊ, எ, ஏ, ஐ, ஒ, ஓ, ஔ
+- **`TAMIL_ACCENT_SYMBOLS`** - 12 Tamil vowel diacritics: (empty), ா, ி, ீ, ு, ூ, ெ, ே, ை, ொ, ோ, ௌ
+
+### Sinhala Constants
+
+- **`SINHALA_VOWELS`** - 18 Sinhala vowels: අ, ආ, ඇ, ඈ, ඉ, ඊ, උ, ඌ, ...
+- **`SINHALA_ACCENT_SYMBOLS`** - 18 Sinhala vowel diacritics
+- **`ZWJ_CHARS`** - Zero Width Joiner character combinations specific to Sinhala
+
+## See Also
+
+- [Graphemizer](graphemizer.md) - Used internally for initial segmentation
+- [Decomposer](decomposer.md) - Used for grapheme decomposition
