@@ -121,6 +121,68 @@ $$
 > - If only the reference is empty but hypothesis is not, CER returns `1.0`
 >
 >
+---
+
+## Character N-gram F-score
+
+Computes the F-score between a hypothesis and reference string based on grapheme-level n-gram overlap.
+
+```python
+character_ngram_fscore(hypothesis: str, reference: str, n: int = 2) → float
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+|---|---|---|
+| `hypothesis` | `str` | The predicted/generated string |
+| `reference` | `str` | The ground truth string |
+| `n` | `int` | Size of the character n-gram (default: `2` for bigrams) |
+| **Returns** | `float` | F-score value (between 0.0 and 1.0) |
+
+### Examples
+
+```python
+>>> from graphemes_plusplus.metric import character_ngram_fscore
+>>> character_ngram_fscore("ප්‍රධාන", "ප්‍රධාන")
+1.0
+>>> character_ngram_fscore("අධ්‍යාපනික", "අධ්‍යාපනික", n=3)
+1.0
+```
+
+---
+
+## BPC (Bits-per-Character)
+
+Approximates the Bits-per-Character (BPC) metric at the grapheme level. Matching graphemes are assigned a high probability (`0.9`) and mismatches a low probability (`0.1`).
+
+```python
+BPC(hypothesis: str, reference: str) → float
+```
+
+### Parameters
+
+| Parameter | Type | Description |
+|---|---|---|
+| `hypothesis` | `str` | The predicted/generated string |
+| `reference` | `str` | The ground truth string |
+| **Returns** | `float` | The approximated BPC value (lower is better) |
+
+### Formula
+
+$$
+\text{BPC} = -\frac{1}{N} \sum_{i=1}^{N} \log_2(P(c_i))
+$$
+
+### Examples
+
+```python
+>>> from graphemes_plusplus.metric import BPC
+>>> BPC("දැනුම", "දැනුම")
+0.1520030934
+>>> BPC("දැනුම", "විද්‍යා")
+3.3219280949
+```
 ## See Also
 
 - [Distance Functions](distance.md) - The Levenshtein function used by CER

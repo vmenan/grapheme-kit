@@ -91,9 +91,11 @@ $$
 |---|---|---|---|
 | **chrF** | Translation quality | No tokenization needed, correlates well with human judgment | Ignores word order |
 | **chrF++** | Translation quality | Captures word order via word n-grams | Slightly more complex |
+| **N-gram F-score** | Short sequence similarity | Simple precision/recall trade-off | Fixed n-gram size |
 | **CER** | OCR, ASR | Simple, intuitive interpretation | Doesn't capture reordering |
 | **Levenshtein** | String similarity | Raw edit distance | Not normalized |
 | **Hamming** | Fixed-length comparison | Fast | Requires equal length |
+| **BPC** | Generative models | Entropy-style evaluation | Hardcoded probabilities |
 
 ## Practical Workflow
 
@@ -106,8 +108,9 @@ graph TD
     E --> G{"Choose Metric"}
     F --> G
     G --> H["GraphemeCHRF"]
-    G --> I["CER"]
+    G --> I["CER / N-gram F-score"]
     G --> J["Levenshtein / Hamming"]
+    G --> K["BPC"]
     
     style A fill:#7c4dff,color:#fff
     style C fill:#7c4dff,color:#fff

@@ -59,22 +59,7 @@ original = compose(decomposed)
 print(original)    # கா
 ```
 
-## 4. Normalize a File
-
-Batch-normalize an entire text file with proper Unicode NFC and script-specific fixups:
-
-```python
-from graphemes_plusplus.utils import normalize_file
-
-# Auto-generates output filename
-output = normalize_file("input.txt")
-print(output)  # 'input_normalized.txt'
-
-# Or specify a custom output path
-output = normalize_file("input.txt", "clean_output.txt")
-```
-
-## 5. Evaluate with Metrics
+## 4. Evaluate with Metrics
 
 Use grapheme-aware chrF and CER for NLP evaluation:
 
