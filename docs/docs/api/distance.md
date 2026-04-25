@@ -82,5 +82,5 @@ graph LR
 
 ## See Also
 
-- [Graphemizer](graphemizer.md) — Creates the grapheme lists used for comparison
-- [Metrics](metric.md) — Higher-level evaluation metrics built on distance functions
+- [Graphemizer](graphemizer.md) - Creates the grapheme lists used for comparison
+- [Metrics](metric.md) - Higher-level evaluation metrics built on distance functions

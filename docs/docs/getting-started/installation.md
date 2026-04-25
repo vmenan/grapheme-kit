@@ -27,10 +27,6 @@ pip install -e .
 ```
 
 
-> **Why uv?**
-> [uv](https://docs.astral.sh/uv/) is a fast Python package manager written in Rust. It's significantly faster than pip and handles virtual environments automatically.
->
->
 ## Dependencies
 
 `graphemes++` depends on the following packages (installed automatically):

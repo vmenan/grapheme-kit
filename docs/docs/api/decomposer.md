@@ -10,7 +10,7 @@ class Decomposer
 
 **Module:** `graphemes_plusplus.decomposer`
 
-All methods are `@classmethod` — no instantiation required.
+All methods are `@classmethod` - no instantiation required.
 
 ## Functions
 
@@ -92,16 +92,16 @@ The `Decomposer` automatically detects the script using Unicode ranges:
 
 ### Tamil Constants
 
-- **`TAMIL_VOWELS`** — 12 Tamil vowels (உயிர் எழுத்துக்கள்): அ, ஆ, இ, ஈ, உ, ஊ, எ, ஏ, ஐ, ஒ, ஓ, ஔ
-- **`TAMIL_ACCENT_SYMBOLS`** — 12 Tamil vowel diacritics: (empty), ா, ி, ீ, ு, ூ, ெ, ே, ை, ொ, ோ, ௌ
+- **`TAMIL_VOWELS`** - 12 Tamil vowels (உயிர் எழுத்துக்கள்): அ, ஆ, இ, ஈ, உ, ஊ, எ, ஏ, ஐ, ஒ, ஓ, ஔ
+- **`TAMIL_ACCENT_SYMBOLS`** - 12 Tamil vowel diacritics: (empty), ா, ி, ீ, ு, ூ, ெ, ே, ை, ொ, ோ, ௌ
 
 ### Sinhala Constants
 
-- **`SINHALA_VOWELS`** — 18 Sinhala vowels: අ, ආ, ඇ, ඈ, ඉ, ඊ, උ, ඌ, ...
-- **`SINHALA_ACCENT_SYMBOLS`** — 18 Sinhala vowel diacritics
-- **`ZWJ_CHARS`** — Zero Width Joiner character combinations specific to Sinhala
+- **`SINHALA_VOWELS`** - 18 Sinhala vowels: අ, ආ, ඇ, ඈ, ඉ, ඊ, උ, ඌ, ...
+- **`SINHALA_ACCENT_SYMBOLS`** - 18 Sinhala vowel diacritics
+- **`ZWJ_CHARS`** - Zero Width Joiner character combinations specific to Sinhala
 
 ## See Also
 
-- [Graphemizer](graphemizer.md) — Used internally for initial segmentation
-- [Distance](distance.md) — Uses decomposition for distance computation
+- [Graphemizer](graphemizer.md) - Used internally for initial segmentation
+- [Distance](distance.md) - Uses decomposition for distance computation

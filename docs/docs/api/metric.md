@@ -123,5 +123,5 @@ $$
 >
 ## See Also
 
-- [Distance Functions](distance.md) — The Levenshtein function used by CER
-- [Graphemizer](graphemizer.md) — Segments text into graphemes before metric computation
+- [Distance Functions](distance.md) - The Levenshtein function used by CER
+- [Graphemizer](graphemizer.md) - Segments text into graphemes before metric computation

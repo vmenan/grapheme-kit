@@ -63,8 +63,8 @@ graph LR
     style D fill:#00bfa5,color:#fff
 ```
 
-1. **Normalize** — Unicode NFC normalization + Tamil/Sinhala-specific character fixups
-2. **Split** — Extended grapheme clustering that handles conjuncts and ZWJ sequences
+1. **Normalize** - Unicode NFC normalization + Tamil/Sinhala-specific character fixups
+2. **Split** - Extended grapheme clustering that handles conjuncts and ZWJ sequences
 
 ## Examples
 
@@ -98,6 +98,6 @@ graph LR
 >
 ## See Also
 
-- [Normalizer](utils.md) — The normalization component used internally
-- [GraphemeSplitter](utils.md) — The splitting component used internally
-- [Distance Functions](distance.md) — Use graphemes for distance computation
+- [Normalizer](utils.md) - The normalization component used internally
+- [GraphemeSplitter](utils.md) - The splitting component used internally
+- [Distance Functions](distance.md) - Use graphemes for distance computation

@@ -2,7 +2,7 @@
 
 A Python library for accurate grapheme-level segmentation and processing, designed specifically for Indic scripts like Tamil and Sinhala.
 
-Standard string processing libraries operate on Unicode code points. However, Indic scripts use complex sequences of code points—such as consonant-vowel combinations and zero-width joiners—to render a single visual grapheme. `graphemes++` parses these visual clusters accurately.
+Standard string processing libraries operate on Unicode code points. However, Indic scripts use complex sequences of code points such as consonant-vowel combinations and zero-width joiners to render a single visual grapheme. `graphemes++` parses these visual clusters accurately.
 
 ## Key Features
 

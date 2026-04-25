@@ -16,13 +16,13 @@ class Normalizer
 
 Main normalization entry point. Applies:
 
-1. **Unicode NFC** — Canonical Composition normalization
-2. **Tamil fixups** — Corrects common encoding issues:
+1. **Unicode NFC** - Canonical Composition normalization
+2. **Tamil fixups** - Corrects common encoding issues:
     - Reversed vowel orders (`ாெ` → `ொ`, `ாே` → `ோ`)
     - Incorrect character sequences (`ா்` → `ர்`)
     - Zero Width Non-Joiner removal
     - Conditional vowel merging (`ெள` → `ௌ`)
-3. **Sinhala fixups** — Corrects confusable character combinations:
+3. **Sinhala fixups** - Corrects confusable character combinations:
     - Multiple variant encodings of `ෝ`, `ෞ`, `ෛ`, etc.
 
 ```python
@@ -119,4 +119,4 @@ normalize_file(input_path: str, output_path: str | None = None) → str
 
 ## See Also
 
-- [Graphemizer](graphemizer.md) — Uses `Normalizer` and `GraphemeSplitter` internally
+- [Graphemizer](graphemizer.md) - Uses `Normalizer` and `GraphemeSplitter` internally

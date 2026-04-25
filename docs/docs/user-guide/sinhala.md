@@ -36,7 +36,7 @@ The standard `grapheme` library may split Sinhala ZWJ conjuncts incorrectly. `gr
 # ZWJ conjuncts are kept as single graphemes
 g = Graphemizer("ක්‍රීඩා")
 print(g.graphemes)
-# ['ක්‍රී', 'ඩා'] — correctly merged
+# ['ක්‍රී', 'ඩා']   correctly merged
 ```
 
 > **Zero Width Joiner (ZWJ)**
