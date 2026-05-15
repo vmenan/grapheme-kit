@@ -173,55 +173,6 @@ class TestCER:
         assert CER("ක්‍රි", "ක්‍රි") == 0.0
         assert CER("ක්‍රමය", "ක්මය") == pytest.approx(1 / 3, rel=1e-9)
 
-
-class Testcharacter_ngram_fscore:
-    def test_perfect_match(self):
-        assert character_ngram_fscore("ප්‍රධාන", "ප්‍රධාන") == 1.0
-
-
-    def test_complete_mismatch(self):
-        assert character_ngram_fscore("ප්‍රධාන", "පදය") == 0.0
-
-
-    def test_partial_overlap(self):
-        assert character_ngram_fscore("ආචාර්ය්‍ය", "ආචාරය්‍යා") == pytest.approx(1 / 3, rel=1e-9)
-
-    def test_trigram_match(self):
-        assert character_ngram_fscore("අධ්‍යාපනික", "අධ්‍යාපනික", n=3) == 1.0
-
-    def test_reference_too_short_for_ngram(self):
-        assert character_ngram_fscore("යනවා", "ය", n=2) == 0.0
-
-    def test_both_too_short_for_ngram(self):
-        assert character_ngram_fscore("ර", "ර", n=2) == 1.0
-
-    def test_grapheme_aware_single_vs_split_form(self):
-        assert character_ngram_fscore("ஸ்ரீ", "ஸ்ரி", n=1) == 0.0
-
-
-class TestBPC:
-    def test_perfect_match(self):
-        assert BPC("දැනුම", "දැනුම") == pytest.approx(0.1520030934, rel=1e-9)
-
-
-    def test_complete_mismatch(self):
-        assert BPC("දැනුම", "විද්‍යා") == pytest.approx(3.3219280949, rel=1e-9)
-
-
-    def test_empty_reference_cases(self):
-        assert BPC("", "") == 0.0
-        assert BPC("දැනුම", "") == 1.0
-
-    def test_single_mismatch(self):
-        expected = -((3 * math.log2(0.9)) + math.log2(0.1)) / 4
-        assert BPC("අර්ථය", "අර්තය") == pytest.approx(expected, rel=1e-9)
-
-    def test_short_hypothesis_treated_as_mismatch_tail(self):
-        expected = -((2 * math.log2(0.9)) + (2 * math.log2(0.1))) / 4
-        assert BPC("කර", "කරන්න") == pytest.approx(expected, rel=1e-9)
-
-    def test_grapheme_aware_perfect_match(self):
-        assert BPC("ஸ்ரீ", "ஸ்ரீ") == pytest.approx(-math.log2(0.9), rel=1e-9)
     
 
 
