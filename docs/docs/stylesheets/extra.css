@@ -1,26 +1,307 @@
-/* ============================================================
-   graphemes++ Documentation — Custom Theme Overrides
-   Minimal, Standard Professional Theme
-   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap');
 
-/* ---------- API Signature Boxes ---------- */
-.md-typeset .api-signature {
-  background: var(--md-code-bg-color);
-  border: 1px solid var(--md-default-fg-color--lightest);
-  border-left: 4px solid var(--md-primary-fg-color);
-  border-radius: 4px;
-  padding: 0.8rem 1rem;
-  margin: 1rem 0;
-  font-family: var(--md-code-font-family);
-  font-size: 0.9em;
-  overflow-x: auto;
+/* =========================================================
+   graphemes++ — Premium Documentation Design System
+   ========================================================= */
+
+:root {
+    --md-primary-fg-color:        #1B4D3E;
+    --md-primary-fg-color--light: #2E8B57;
+    --md-primary-fg-color--dark:  #0D2A22;
+    --md-accent-fg-color:         #27AE60;
+    --md-code-bg-color:           #ffffff;
 }
 
-/* ---------- Typography Tweaks ---------- */
+[data-md-color-scheme="slate"] {
+    --md-primary-fg-color:        #1B4D3E;
+    --md-accent-fg-color:         #27AE60;
+    --md-default-bg-color:        #0D1110; /* Very dark green-tinted background */
+    --md-default-bg-color--light: #151B1A;
+    --md-code-bg-color:           #151B1A; /* Dark green-tinted code blocks */
+}
+
+/* --- TYPOGRAPHY --- */
+body {
+    font-family: 'Outfit', sans-serif;
+}
+
 .md-typeset h1, .md-typeset h2, .md-typeset h3 {
-  font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    margin-top: 1.5em;
 }
 
-.md-nav__link {
-  font-weight: 400;
+/* --- LIQUID GLASS HEADER --- */
+.md-header {
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+}
+
+[data-md-color-scheme="slate"] .md-header {
+    background-color: rgba(13, 17, 16, 0.8) !important;
+    border-bottom: 1px solid rgba(39, 174, 96, 0.1);
+}
+
+[data-md-color-scheme="default"] .md-header {
+    background-color: rgba(255, 255, 255, 0.92) !important;
+    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Light-mode header text visibility */
+[data-md-color-scheme="default"] .md-header__title,
+[data-md-color-scheme="default"] .md-header__button,
+[data-md-color-scheme="default"] .md-source {
+    color: #1B4D3E !important;
+}
+
+/* --- TABS (glass effect) --- */
+[data-md-color-scheme="slate"] .md-tabs {
+    background-color: rgba(27, 77, 62, 0.45) !important;
+    backdrop-filter: blur(12px);
+}
+
+[data-md-color-scheme="default"] .md-tabs {
+    background-color: rgba(240, 245, 242, 0.92) !important;
+}
+
+[data-md-color-scheme="default"] .md-tabs__link {
+    color: #1B4D3E !important;
+}
+
+/* --- CONTENT ANIMATION --- */
+.md-content {
+    animation: fadeInUp 0.45s ease-out;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- SIDEBAR GLASSMORPHISM --- */
+.md-sidebar {
+    transition: all 0.3s ease;
+}
+
+[data-md-color-scheme="slate"] .md-sidebar--primary {
+    background-color: rgba(13, 17, 16, 0.45) !important;
+    backdrop-filter: blur(8px);
+}
+
+/* --- ADMONITION ENHANCEMENTS --- */
+.md-typeset .admonition, .md-typeset details {
+    border-radius: 12px;
+    border-left-width: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Green Admonition Overrides */
+.md-typeset .admonition.info, .md-typeset details.info,
+.md-typeset .admonition.note, .md-typeset details.note,
+.md-typeset .admonition.todo, .md-typeset details.todo,
+.md-typeset .admonition.tip, .md-typeset details.tip,
+.md-typeset .admonition.success, .md-typeset details.success,
+.md-typeset .admonition.abstract, .md-typeset details.abstract,
+.md-typeset .admonition.question, .md-typeset details.question {
+    border-color: #1e8c4c;
+}
+
+.md-typeset .admonition.info > .admonition-title, .md-typeset details.info > summary,
+.md-typeset .admonition.note > .admonition-title, .md-typeset details.note > summary,
+.md-typeset .admonition.todo > .admonition-title, .md-typeset details.todo > summary,
+.md-typeset .admonition.tip > .admonition-title, .md-typeset details.tip > summary,
+.md-typeset .admonition.success > .admonition-title, .md-typeset details.success > summary,
+.md-typeset .admonition.abstract > .admonition-title, .md-typeset details.abstract > summary,
+.md-typeset .admonition.question > .admonition-title, .md-typeset details.question > summary {
+    background-color: rgba(39, 174, 96, 0.1);
+}
+
+/* Override the icon color */
+.md-typeset .admonition.info > .admonition-title::before, .md-typeset details.info > summary::before,
+.md-typeset .admonition.note > .admonition-title::before, .md-typeset details.note > summary::before,
+.md-typeset .admonition.todo > .admonition-title::before, .md-typeset details.todo > summary::before,
+.md-typeset .admonition.tip > .admonition-title::before, .md-typeset details.tip > summary::before,
+.md-typeset .admonition.success > .admonition-title::before, .md-typeset details.success > summary::before,
+.md-typeset .admonition.abstract > .admonition-title::before, .md-typeset details.abstract > summary::before,
+.md-typeset .admonition.question > .admonition-title::before, .md-typeset details.question > summary::before {
+    background-color: #1e8c4c !important; /* Forces the icon to be green */
+    mask-image: var(--md-admonition-icon--info); /* Keeps the icon shape */
+}
+
+/* --- CODE BLOCKS --- */
+.md-typeset pre {
+    border-radius: 16px;
+    border: 1px solid rgba(39, 174, 96, 0.1);
+    box-shadow: 0 4px 20px rgba(171, 171, 171, 0.2);
+    transition: box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--md-code-bg-color) !important;
+}
+
+/* Force white background for the inner code container in light mode */
+[data-md-color-scheme="default"] .md-typeset pre code,
+[data-md-color-scheme="default"] .md-code__content {
+    background-color: #ffffff !important;
+}
+
+/* Inline code background override */
+[data-md-color-scheme="default"] .md-typeset code {
+    background-color: rgba(39, 174, 96, 0.06) !important;
+    color: #1B4D3E;
+}
+
+.md-typeset pre:hover {
+    box-shadow: 0 6px 28px rgba(39, 174, 96, 0.01);
+    border-color: rgba(39, 174, 96, 0.3);
+}
+
+[data-md-color-scheme="slate"] .md-typeset pre {
+    border-color: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+[data-md-color-scheme="slate"] .md-typeset pre:hover {
+    box-shadow: 0 6px 28px rgba(39, 174, 96, 0.01);
+    border-color: rgba(39, 174, 96, 0.4);
+}
+
+/* Copy button — premium style */
+.md-typeset .md-clipboard {
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: rgba(39, 174, 96, 0.12);
+    border: 1px solid rgba(39, 174, 96, 0.25);
+    color: var(--md-accent-fg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+}
+
+.md-typeset pre:hover .md-clipboard {
+    opacity: 1;
+}
+
+.md-typeset .md-clipboard:hover {
+    background: var(--md-accent-fg-color);
+    border-color: var(--md-accent-fg-color);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.45);
+}
+
+.md-typeset .md-clipboard:after {
+    font-size: 0.75rem;
+}
+
+/* --- API SIGNATURE BOXES (preserved) --- */
+.md-typeset .api-signature {
+    background: var(--md-code-bg-color);
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-left: 4px solid var(--md-accent-fg-color);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    margin: 1rem 0;
+    font-family: var(--md-code-font-family);
+    font-size: 0.9em;
+    overflow-x: auto;
+}
+
+/* --- MERMAID DIAGRAMS --- */
+.mermaid {
+    background: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 36px !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.07);
+    display: flex;
+    justify-content: center;
+    border: 1px solid rgba(27, 77, 62, 0.1);
+}
+
+[data-md-color-scheme="slate"] .mermaid {
+    background: rgba(21, 27, 26, 0.6) !important;
+    border-color: rgba(39, 174, 96, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+.mermaid svg {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+/* --- IMAGES --- */
+.md-typeset img {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.md-typeset img:hover {
+    transform: scale(1.02);
+}
+
+/* --- FOOTER (light theme fix) --- */
+[data-md-color-scheme="default"] .md-footer {
+    background-color: #F4FAF8 !important;
+    color: #1B4D3E !important;
+    border-top: 1px solid rgba(27, 77, 62, 0.08);
+}
+
+[data-md-color-scheme="default"] .md-footer__link,
+[data-md-color-scheme="default"] .md-footer-meta {
+    color: #1B4D3E !important;
+}
+
+/* --- SEARCH --- */
+.md-search__form {
+    border-radius: 10px;
+}
+
+[data-md-toggle="search"]:checked ~ .md-header .md-search__form {
+    border-radius: 10px 10px 0 0;
+}
+
+.md-search__output {
+    border-radius: 0 0 10px 10px;
+}
+
+/* --- SCROLLBAR --- */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: rgba(27, 77, 62, 0.2); border-radius: 10px; }
+
+/* --- TABLES --- */
+.md-typeset table:not([class]) {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* --- LINKS --- */
+.md-typeset a {
+    color: var(--md-accent-fg-color);
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.md-typeset a:hover {
+    color: #1E8449;
+}
+
+[data-md-color-scheme="slate"] .md-typeset a {
+    color: #24a359;
+}
+
+[data-md-color-scheme="slate"] .md-typeset a:hover {
+    color: #58D68D;
+}
+
+/* --- CODE BLOCK NAV CLEANUP --- */
+.md-code__nav {
+    background-color: transparent !important;
 }

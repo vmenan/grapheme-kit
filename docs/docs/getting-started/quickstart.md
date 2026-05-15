@@ -1,88 +1,90 @@
 # Quick Start
 
-This guide walks you through the core features of `graphemes++` in under 5 minutes.
+This guide gives you a fast, hands-on experience with every major feature in `graphemes++` under 5 minutes.
 
-## 1. Segment Text into Graphemes
+## 1. Segment Text
 
-The `Graphemizer` class is the primary entry point. It takes a string, normalizes it, and splits it into proper grapheme clusters.
+Use `Graphemizer` to split text into visual grapheme clusters correctly.
 
 ```python
 from graphemes_plusplus import Graphemizer
 
-# Tamil text
-g = Graphemizer("ஸ்ரீ மதி")
-print(g.graphemes)  # ['ஸ்ரீ', ' ', 'ம', 'தி']
-print(len(g))       # 4
-```
+text = "ஸ்ரீ மதி"
+g = Graphemizer(text)
 
-The `Graphemizer` is iterable:
+print(g.graphemes)
+# Output: ['ஸ்ரீ', ' ', 'ம', 'தி']
 
-```python
+print(len(g))
+# Output: 4
+
 for grapheme in g:
     print(grapheme)
 # Output:
 # ஸ்ரீ
-# (space)
+#  
 # ம
 # தி
 ```
 
-> **Why not just `list(text)`?**
-> In Tamil and Sinhala, a single visual character (grapheme) can consist of multiple Unicode code points. For example, `ஸ்ரீ` is 4 code points but **1 grapheme**. Python's `list()` would split it into 4 separate items, which is linguistically incorrect.
->
->
-## 2. Compute Grapheme-Aware Distances
+## 2. Compute Distance
+
+Compute the edit distance (Levenshtein) and Hamming distance between two strings using grapheme-aware calculations.
 
 ```python
 from graphemes_plusplus import levenshtein, hamming
 
-# Levenshtein distance (edit distance)
-print(levenshtein("ஸ்ரீ", "ஸ்ரி"))  # 1
+# "ஸ்ரீ" is 1 grapheme. "ஸ்ரி" is 2 graphemes.
+# Therefore, the distance is 2.
+print(levenshtein("ஸ்ரீ", "ஸ்ரி"))
+# Output: 2
 
-# Hamming distance (substitution-only, equal length required)
-print(hamming("ஸ்ரீ", "ஸ்ரீ"))     # 0
+print(hamming("රැ", "රැහ"))
+# Output: 1
 ```
 
-## 3. Decompose and Compose
+## 3. Decompose & Compose Phonetics
 
-Break graphemes into phonetic components and reconstruct them:
+Break down complex clusters into their phonetic base consonants and vowels, and compose them back seamlessly.
 
 ```python
 from graphemes_plusplus import decompose, compose
 
-# Decompose into consonant + vowel components
-decomposed = decompose("கா")
-print(decomposed)  # க் + ஆ components
+# Decomposing a complex Tamil cluster
+decomposed = decompose("ஸ்ரீ")
+print(decomposed)
+# Output: ஸ்ர்ஈ
 
-# Compose back
-original = compose(decomposed)
-print(original)    # கா
+# Composing it back to the original form
+composed = compose(decomposed)
+print(composed)
+# Output: ஸ்ரீ
 ```
 
 ## 4. Evaluate with Metrics
 
-Use grapheme-aware chrF and CER for NLP evaluation:
+Calculate NLP evaluation metrics scaled to grapheme boundaries. This ensures that a single missed modifier doesn't unfairly penalize the model as multiple code point errors.
 
 ```python
 from graphemes_plusplus.metric import GraphemeCHRF, CER
 
-# chrF score
-chrf = GraphemeCHRF()
-score = chrf.corpus_score(
-    ["வணக்கம் உலகம்"],
-    [["வணக்கம் உலகம்"]]
-)
-print(score)  # 100.0
+hypothesis = "සිංහල"
+reference = "සිංහල"
 
-# Character Error Rate
-cer = CER("predicted text", "reference text")
-print(cer)
+# GraphemeCHRF Corpus Score
+metric = GraphemeCHRF()
+score = metric.corpus_score([hypothesis], [[reference]])
+print(score.score)
+# Output: 100.0
+
+# Character Error Rate (CER)
+error_rate = CER("කනවා", "කනව")
+print(error_rate)
+# Output: 0.3333333333333333 (1 error / 3 total graphemes)
 ```
 
----
+## Next Steps
 
-> **Next Steps**
-> - Explore the full [API Reference](../api/graphemizer.md) for detailed documentation
-> - Read the [Tamil](../user-guide/tamil.md) or [Sinhala](../user-guide/sinhala.md) specific guides
-> - Learn about [Evaluation Metrics](../user-guide/evaluation.md) for NLP tasks
->
+- Want a deeper understanding of the theory? Check out the [Tutorials](../tutorials/introduction.md) series.
+- Looking for practical application patterns? Read the [How-To Guides](../how-to/grapheme-segmentation.md).
+- Need comprehensive details? Dive into the [API Reference](../reference/graphemizer.md).

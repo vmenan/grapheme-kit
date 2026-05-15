@@ -1,15 +1,13 @@
 # Installation
 
-## Requirements
+## Prerequisites
 
-- **Python** ≥ 3.14
-- **pip** or **uv** package manager
+- **Python**: Version 3.14 or newer.
+- **uv**: We recommend using the `uv` package manager for fast and reliable dependency resolution. (See [uv documentation](https://docs.astral.sh/uv/)).
 
 ## Install from Source
 
-Currently, `graphemes++` is installed from source via Git clone:
-
-**Using uv (recommended)**
+Currently, the recommended way to install `graphemes++` is by cloning the repository and syncing dependencies via `uv`.
 
 ```bash
 git clone https://github.com/vmenan/graphemes_plusplus.git
@@ -17,37 +15,24 @@ cd graphemes_plusplus
 uv sync
 ```
 
+## Verify Installation
 
-**Using pip**
+Open a Python shell and try importing the library:
 
-```bash
-git clone https://github.com/vmenan/graphemes_plusplus.git
-cd graphemes_plusplus
-pip install -e .
+```python
+from graphemes_plusplus import Graphemizer
+
+g = Graphemizer("வணக்கம்")
+print(g.graphemes)
+# Output: ['வ', 'ண', 'க்', 'க', 'ம்']
 ```
 
+If you see the output above without any errors, the installation was successful.
 
 ## Dependencies
 
-`graphemes++` depends on the following packages (installed automatically):
+When you run `uv sync`, the following core dependencies are automatically installed:
 
-| Package | Version | Purpose |
-|---|---|---|
-| `grapheme` | ≥ 0.6.0 | Base Unicode grapheme clustering |
-| `textdistance` | ≥ 4.6.3 | Levenshtein & Hamming distance algorithms |
-| `sacrebleu` | ≥ 2.0.0 | chrF/chrF++ metric base class |
-
-## Verify Installation
-
-After installation, verify everything works:
-
-```python
->>> from graphemes_plusplus import Graphemizer
->>> g = Graphemizer("வணக்கம்")
->>> g.graphemes
-['வ', 'ண', 'க்', 'க', 'ம்']
-```
-
-> **Ready to go!**
-> If you see the grapheme list output without errors, the installation is complete. Head to the [Quick Start](quickstart.md) guide next.
->
+- `grapheme` (≥0.6.0): Used as the base Unicode grapheme cluster foundation.
+- `textdistance` (≥4.6.3): Used to compute Levenshtein and Hamming distances.
+- `sacrebleu` (≥2.6.0): The base library extended for `GraphemeCHRF`.
