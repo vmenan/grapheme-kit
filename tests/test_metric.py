@@ -1,7 +1,7 @@
 import math
 
 import pytest
-from graphemes_plusplus.metric import GraphemeCHRF, CER, BPC, character_ngram_fscore
+from graphemes_plusplus.metric import GraphemeCHRF, CER
 
 
 @pytest.fixture
