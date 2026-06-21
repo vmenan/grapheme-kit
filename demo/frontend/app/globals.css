@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-mono: "JetBrains Mono", "Noto Sans Tamil", "Noto Sans Sinhala",
+    ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background: #ffffff;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Indic text needs a generous line-height so combining marks aren't clipped. */
+.indic {
+  font-family: var(--font-mono);
+  line-height: 2;
+}
+
+textarea {
+  line-height: 1.9;
+}

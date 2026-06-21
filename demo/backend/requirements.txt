@@ -1,0 +1,7 @@
+# Web layer only. The graphemes_plusplus library itself (and its deps:
+# grapheme, sacrebleu, textdistance, numpy, ...) is installed separately from
+# the repo root, e.g.  pip install ../..   (see Dockerfile / README).
+fastapi>=0.115
+uvicorn[standard]>=0.30
+python-multipart>=0.0.9
+pydantic>=2.7

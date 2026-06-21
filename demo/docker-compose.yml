@@ -1,0 +1,30 @@
+# One-command local stack:  cd demo && docker compose up --build
+# - api: FastAPI backend running the real graphemes_plusplus library (port 7860)
+# - web: Next.js dev server (port 3000), talking to the api on localhost:7860
+services:
+  api:
+    build:
+      context: ..            # repo root, so the library source is in the context
+      dockerfile: demo/backend/Dockerfile
+    environment:
+      PORT: "7860"
+      GRAPHEMES_CORS_ORIGINS: "*"
+    ports:
+      - "7860:7860"
+
+  web:
+    image: node:22-alpine
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- -H 0.0.0.0 -p 3000"
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: "http://localhost:7860"
+    volumes:
+      - ./frontend:/app
+      - web_node_modules:/app/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+volumes:
+  web_node_modules:

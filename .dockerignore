@@ -1,0 +1,10 @@
+# Keep the Docker build context small (used by demo/backend/Dockerfile).
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/.venv/
+.venv/
+demo/frontend/node_modules/
+demo/frontend/.next/
+demo/frontend/out/
+.git/

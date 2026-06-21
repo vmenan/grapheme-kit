@@ -1,0 +1,13 @@
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env.local
+frontend/next-env.d.ts
+frontend/tsconfig.tsbuildinfo
+
+# Python backend
+backend/.venv/
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
