@@ -140,4 +140,92 @@ def CER(hypothesis: str, reference: str) -> float:
     return distance / len(ref_graphemes)
 
 
+def charbleu(reference: str, hypothesis: str, max_n: int = 4, weights=None) -> float:
+    """
+    Grapheme-aware CharBLEU metric (character-level BLEU).
+    
+    CharBLEU measures the similarity between a reference and hypothesis string
+    at the grapheme level by computing n-gram precision for character-level n-grams
+    and combining them using a geometric mean.
+    
+    Args:
+        reference: The reference string to compare against.
+        hypothesis: The hypothesis/candidate string to evaluate.
+        max_n: Maximum n-gram level to consider (default: 4).
+        weights: Weights for each n-gram level. If None, uses uniform weights.
+                 Should be a list of length max_n that sums to 1.
+    
+    Returns:
+        A score between 0 and 1, where 1.0 indicates perfect match.
+    """
+    if not reference or not hypothesis:
+        return 1.0 if reference == hypothesis else 0.0
+    
+    ref_graphemes = list(Graphemizer(reference))
+    hyp_graphemes = list(Graphemizer(hypothesis))
+    
+    # Check for exact match first
+    if ref_graphemes == hyp_graphemes:
+        return 1.0
+    
+    # Default uniform weights
+    if weights is None:
+        weights = [1.0 / max_n] * max_n
+    
+    # Calculate n-gram precisions
+    precisions = []
+    valid_n_values = []
+    
+    for n in range(1, max_n + 1):
+        # Create n-grams only if hypothesis is long enough
+        if len(hyp_graphemes) < n:
+            # Skip n-grams larger than hypothesis length
+            continue
+        
+        ref_ngrams = [tuple(ref_graphemes[i:i+n]) for i in range(len(ref_graphemes) - n + 1)]
+        hyp_ngrams = [tuple(hyp_graphemes[i:i+n]) for i in range(len(hyp_graphemes) - n + 1)]
+        
+        # Count matching n-grams
+        ref_ngram_counts = {}
+        for ngram in ref_ngrams:
+            ref_ngram_counts[ngram] = ref_ngram_counts.get(ngram, 0) + 1
+        
+        matches = 0
+        for ngram in hyp_ngrams:
+            if ngram in ref_ngram_counts and ref_ngram_counts[ngram] > 0:
+                matches += 1
+                ref_ngram_counts[ngram] -= 1
+        
+        precision = matches / len(hyp_ngrams) if hyp_ngrams else 0.0
+        
+        # Only include n-grams with non-zero precision
+        if precision > 0:
+            precisions.append(precision)
+            valid_n_values.append(n)
+    
+    # If we have no valid precisions, return 0
+    if not precisions:
+        return 0.0
+    
+    # Apply brevity penalty if hypothesis is shorter than reference
+    if len(hyp_graphemes) < len(ref_graphemes):
+        # Brevity penalty factor
+        brevity_penalty = max(0, 1 - len(ref_graphemes) / len(hyp_graphemes)) if len(hyp_graphemes) > 0 else 0
+        brevity_penalty = max(0, 1 - brevity_penalty)
+    else:
+        brevity_penalty = 1.0
+    
+    # Normalize weights based on valid n values
+    normalized_weights = []
+    weight_sum = sum(weights[n-1] for n in valid_n_values)
+    for n in valid_n_values:
+        normalized_weights.append(weights[n-1] / weight_sum)
+    
+    # Calculate geometric mean of precisions with weights
+    log_precisions = [math.log(p) * w for p, w in zip(precisions, normalized_weights)]
+    geo_mean = math.exp(sum(log_precisions))
+    
+    return geo_mean * brevity_penalty
+
+
 

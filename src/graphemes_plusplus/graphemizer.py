@@ -1,4 +1,6 @@
 import os
+
+import grapheme
 from graphemes_plusplus.utils.normalizer import Normalizer
 from graphemes_plusplus.utils.graphemes import GraphemeSplitter
 
@@ -33,4 +35,9 @@ class Graphemizer:
         return graphemes
 
 g = Graphemizer("")
-print(g._process_text('ආචාර්ය්‍ය'))
+#print(list("ශ්‍රී ලංකාවේ ප්‍රධාන ජාති‍ය වන"))
+print(list(grapheme.graphemes("ශ්‍රී ලංකාවේ ප්‍රධාන ජාතිය වන")))
+
+
+#print(g._process_text('ශ්‍රී ලංකාවේ ප්‍රධාන ජාති‍ය වන'))
+
