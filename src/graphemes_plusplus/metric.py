@@ -132,7 +132,6 @@ def CER(hypothesis: str, reference: str) -> float:
     """
     hyp_graphemes = list(Graphemizer(hypothesis))
     ref_graphemes = list(Graphemizer(reference))
-    print(hyp_graphemes,ref_graphemes)
     if len(ref_graphemes) == 0:
         return 0.0 if len(hyp_graphemes) == 0 else 1.0
 

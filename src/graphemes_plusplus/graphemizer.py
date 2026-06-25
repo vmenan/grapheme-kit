@@ -31,6 +31,3 @@ class Graphemizer:
         # 2. Split
         graphemes = self.splitter.split(normalized_text)
         return graphemes
-
-g = Graphemizer("")
-print(g._process_text('ආචාර්ය්‍ය'))
