@@ -33,11 +33,3 @@ class Graphemizer:
         # 2. Split
         graphemes = self.splitter.split(normalized_text)
         return graphemes
-
-g = Graphemizer("")
-#print(list("ශ්‍රී ලංකාවේ ප්‍රධාන ජාති‍ය වන"))
-print(list(grapheme.graphemes("ශ්‍රී ලංකාවේ ප්‍රධාන ජාතිය වන")))
-
-
-#print(g._process_text('ශ්‍රී ලංකාවේ ප්‍රධාන ජාති‍ය වන'))
-
