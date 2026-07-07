@@ -1,4 +1,4 @@
-from graphemes_plusplus.graphemizer import Graphemizer
+from grapheme_kit.graphemizer import Graphemizer
 
 
 class Composer:

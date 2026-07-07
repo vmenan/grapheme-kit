@@ -1,6 +1,8 @@
 import os
-from graphemes_plusplus.utils.normalizer import Normalizer
-from graphemes_plusplus.utils.graphemes import GraphemeSplitter
+
+import grapheme
+from grapheme_kit.utils.normalizer import Normalizer
+from grapheme_kit.utils.graphemes import GraphemeSplitter
 
 
 class Graphemizer:
@@ -31,6 +33,3 @@ class Graphemizer:
         # 2. Split
         graphemes = self.splitter.split(normalized_text)
         return graphemes
-
-g = Graphemizer("")
-print(g._process_text('ආචාර්ය්‍ය'))
