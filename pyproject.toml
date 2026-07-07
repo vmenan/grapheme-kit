@@ -1,7 +1,7 @@
 [project]
-name = "graphemes-plusplus"
+name = "grapheme-kit"
 version = "0.1.0"
-description = "Grapheme-aware segmentation, distance, and evaluation toolkit for Tamil and Sinhala scripts"
+description = "A grapheme-aware toolkit for segmenting, comparing, and evaluating text across any script or language"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
@@ -42,13 +42,13 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/vmenan/graphemes_plusplus"
-Repository = "https://github.com/vmenan/graphemes_plusplus"
-Issues = "https://github.com/vmenan/graphemes_plusplus/issues"
+Homepage = "https://github.com/vmenan/grapheme-kit"
+Repository = "https://github.com/vmenan/grapheme-kit"
+Issues = "https://github.com/vmenan/grapheme-kit/issues"
 
 [project.scripts]
-graphemes-plusplus = "graphemes_plusplus.cli:main"
-gpp = "graphemes_plusplus.cli:main"
+grapheme-kit = "grapheme_kit.cli:main"
+gkit = "grapheme_kit.cli:main"
 
 [project.optional-dependencies]
 docs = [

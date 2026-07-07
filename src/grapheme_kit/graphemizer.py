@@ -1,8 +1,8 @@
 import os
 
 import grapheme
-from graphemes_plusplus.utils.normalizer import Normalizer
-from graphemes_plusplus.utils.graphemes import GraphemeSplitter
+from grapheme_kit.utils.normalizer import Normalizer
+from grapheme_kit.utils.graphemes import GraphemeSplitter
 
 
 class Graphemizer:

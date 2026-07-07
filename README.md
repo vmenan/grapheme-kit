@@ -1,72 +1,127 @@
-# graphemes++
+# grapheme-kit
 
-A minimalistic grapheme segmentation library for Tamil and Sinhala scripts.
+Grapheme-cluster-aware segmentation, string distance, and evaluation metrics for any language.
+
+[![PyPI](https://img.shields.io/pypi/v/grapheme-kit)](https://pypi.org/project/grapheme-kit/)
+[![Python](https://img.shields.io/pypi/pyversions/grapheme-kit)](https://pypi.org/project/grapheme-kit/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+---
+
+## Why grapheme-kit?
+
+Unicode text is complex: a single *visible* character (grapheme cluster) often spans multiple code points. Naive string operations get lengths, distances, and evaluation metrics wrong when combining marks, diacritics, or conjuncts are present.
+
+`grapheme-kit` operates at the grapheme-cluster level, ensuring all measurements reflect human-perceived text structure, not raw byte or code point counts.
+
+```python
+from grapheme_kit import Graphemizer
+
+g = Graphemizer("ක්‍රීඩාව")
+len("ක්‍රීඩාව")  # 8 code points (naive)
+len(g)          # 3 grapheme clusters (correct)
+
+g = Graphemizer("مَرْحَبًا")
+len("مَرْحَبًا")  # 8 code points (naive)
+len(g)           # 5 grapheme clusters (correct)
+```
+
+---
 
 ## Installation
 
-Install from PyPI:
-
 ```bash
-pip install graphemes-plusplus
+pip install grapheme-kit
 ```
 
-For development, clone the repository and install with [uv](https://docs.astral.sh/uv/):
-
 ```bash
-git clone https://github.com/vmenan/graphemes_plusplus.git
-cd graphemes_plusplus
+# development
+git clone https://github.com/vmenan/grapheme-kit.git
+cd grapheme-kit
 uv sync
 ```
 
-## Usage
+---
 
-### Segment a string
+## Features
 
+### Segmentation
+Split text from any script into correct grapheme clusters:
 ```python
->>> from graphemes_plusplus import Graphemizer
->>> g = Graphemizer("ஸ்ரீ மதி")
->>> g.graphemes
-['ஸ்ரீ', ' ', 'ம', 'தி']
->>> len(g)
-4
->>> for grapheme in g:
-...     print(grapheme)
-ஸ்ரீ
+from grapheme_kit import Graphemizer
 
-ம
-தி
+# Tamil
+g = Graphemizer("ஸ்ரீ வணக்கம்")
+g.graphemes   # ['ஸ்ரீ', ' ', 'வ', 'ண', 'க்', 'க', 'ம்']
+len(g)        # 7
+
+# Sinhala
+g = Graphemizer("ශ්‍රී ලංකාව")
+g.graphemes   # ['ශ්\u200dරී', ' ', 'ලං', 'කා', 'ව']
+len(g)        # 5
 ```
 
-### Compute distance
-
+### String Distance
+Grapheme-aware implementations of popular distance and similarity algorithms:
 ```python
->>> from graphemes_plusplus import levenshtein, hamming
->>> levenshtein("ஸ்ரீ", "ஸ்ரி")
-1
->>> hamming("ஸ்ரீ", "ஸ்ரீ")
-0
+from grapheme_kit import levenshtein
+from grapheme_kit.distance import jaro_winkler, damerau_levenshtein
+
+# Hebrew
+levenshtein("שָׁלוֹם", "שָׁלוֹב")          # 1 (only one cluster differs)
+
+# Tamil
+levenshtein("ஸ்ரீ", "ஸ்ரி")          # 2 (properly counts grapheme edits)
+
+# Latin/English
+levenshtein("kitten", "sitting")       # 3
+jaro_winkler("martha", "marhta")       # 0.9611
 ```
 
-### Normalize a file
-
+### Evaluation Metrics
+Compute machine translation or text generation metrics based on grapheme clusters rather than character code points:
 ```python
->>> from graphemes_plusplus.utils import normalize_file
->>> normalize_file("input.txt")
-'input_normalized.txt'
->>> normalize_file("input.txt", "output.txt")
-'output.txt'
+from grapheme_kit.metric import GraphemeCHRF, CER, charbleu
+
+# chrF
+GraphemeCHRF().sentence_score("நல்ல", ["நல்ல மாணவன்"]).score  # 37.1051
+
+# Character Error Rate (CER)
+CER("كِتَابٌ", "كِتَابَ")  # 0.25
+
+# CharBLEU
+charbleu("the quick brown fox", "the quick red fox")  # 0.7086
 ```
 
-### Command line
+### Decompose / Compose
+Phonetic decomposition and composition (currently supported for select Indic scripts like Tamil and Sinhala):
+```python
+from grapheme_kit import decompose, compose
 
-Installing the package also provides the `graphemes-plusplus` command (short alias `gpp`):
+decompose("කා")                   # 'ක්ආ'
+compose("ක්ආ")                    # 'කා'
+compose(decompose("வணக்கம்")) == "வணக்கம்"  # True
+```
+
+---
+
+## Command Line
+
+The package exposes a `grapheme-kit` executable with a short alias `gkit`:
 
 ```bash
-gpp graphemize "ஸ்ரீ வணக்கம்" --count        # Tamil
-gpp graphemize "ශ්‍රී ලංකාව" --count          # Sinhala
-gpp distance "ஸ்ரீ" "ஸ்ரி" --level both
-gpp evaluate "நல்ல மாணவன்" "நல்ல" --metric chrf
-echo "ශ්‍රී" | gpp decompose --round-trip      # stdin works too
+gkit graphemize "مَرْحَبًا" --count
+gkit graphemize "שָׁלוֹם" --count
+gkit graphemize "ஸ்ரீ வணக்கம்" --count
+gkit distance "ஸ்ரீ" "ஸ்ரி" --level both
+gkit evaluate "நல்ல மாணவன்" "நல்ல" --metric chrf
+gkit decompose "வண்ගම්" --round-trip
 ```
 
-Use `gpp --help` (or `gpp <command> --help`) for the full list of commands and options.
+Use `gkit --help` or `gkit <command> --help` for the full list of commands and options.
+
+---
+
+## Documentation
+
+Full documentation, guides, and API reference: [vmenan.github.io/grapheme-kit](https://vmenan.github.io/grapheme-kit)
