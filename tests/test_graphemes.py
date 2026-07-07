@@ -1,6 +1,7 @@
 from grapheme import graphemes
 import pytest
 import random
+import re
 from pathlib import Path
 from graphemes_plusplus.graphemizer import Graphemizer
 
@@ -36,6 +37,7 @@ class TestGraphemizer:
 			("வணக்கம்", 5),
 			("සිංහල", 3),
 			("ஸ்ரீ", 1),
+			("வெள்ளை", 3),
 		],
 	)
 	def test_len_matches_grapheme_count(self, text, expected_len):
@@ -58,7 +60,10 @@ class TestGraphemizer:
 			pytest.skip(f"Grapheme file not found: {file_path}")
 
 		with file_path.open("r", encoding="utf-8") as f:
-			loaded_graphemes.extend(line.strip() for line in f if line.strip())
+			for line in f:
+				cleaned = line.strip()
+				if cleaned and not cleaned.startswith("--"):
+					loaded_graphemes.append(cleaned)
 
 		assert loaded_graphemes, "No graphemes loaded from the provided file."
 		selected_graphemes = random.choices(loaded_graphemes, k=word_length)
@@ -69,9 +74,42 @@ class TestGraphemizer:
 		selected_graphemes_text = "[" + ", ".join(repr(g) for g in selected_graphemes) + "]"
 		loaded_graphemes_text = "[" + ", ".join(repr(g) for g in loaded_graphemes) + "]"
 
-		# Assert the list size matches expected length
-		assert len(result) == word_length, \
-			f"Expected {word_length} graphemes, got {len(result)} from word: {random_word}. " \
+		# Calculate expected length taking into account possible grapheme mergers
+		expected = word_length
+		tamil_dependent_vowels = ['ா', 'ி', 'ீ', 'ு', 'ூ', 'ெ', 'ே', 'ை', 'ொ', 'ோ', 'ௌ', '்']
+		
+		i = 0
+		while i < len(selected_graphemes) - 1:
+			current = selected_graphemes[i]
+			nxt = selected_graphemes[i+1]
+			
+			# Case 1: க் + ஷ... -> க்ஷ...
+			if current == "க்" and nxt.startswith("ஷ"):
+				expected -= 1
+				i += 1
+			# Case 2: ஸ் + ரீ -> ஸ்ரீ
+			elif current == "ஸ்" and nxt == "ரீ":
+				expected -= 1
+				i += 1
+			# Case 3: ஶ் + ரீ -> ஶ்ரீ
+			elif current == "ஶ்" and nxt == "ரீ":
+				expected -= 1
+				i += 1
+			# Case 4: ெள -> ௌ
+			elif current.endswith("ெ") and nxt.startswith("ள"):
+				following_char = ""
+				if len(nxt) > 1:
+					following_char = nxt[1]
+				elif i + 2 < len(selected_graphemes):
+					following_char = selected_graphemes[i+2][0]
+					
+				if following_char not in tamil_dependent_vowels:
+					expected -= 1
+					i += 1
+			i += 1
+
+		assert len(result) == expected, \
+			f"Expected {expected} graphemes, got {len(result)} from word: {random_word}. " \
 			f"Selected graphemes list: {selected_graphemes_text}. Source file: {file_path}. " \
 			f"Loaded graphemes list: {loaded_graphemes_text}"
 

@@ -1,4 +1,6 @@
 import os
+
+import grapheme
 from graphemes_plusplus.utils.normalizer import Normalizer
 from graphemes_plusplus.utils.graphemes import GraphemeSplitter
 
@@ -31,4 +33,3 @@ class Graphemizer:
         # 2. Split
         graphemes = self.splitter.split(normalized_text)
         return graphemes
-
