@@ -1,5 +1,5 @@
 # <span class="gk-wordmark">grapheme<span class="gk-kit">Kit</span></span>
-
+(Change to Grapheme-Kit)
 Every character-level NLP metric — chrF, CER, edit distance — silently assumes that one Unicode code point is one visually perceived character. That assumption holds for English and most Latin-script languages, so nothing about those metrics needs to change for them. It breaks down for complex scripts like Tamil and Sinhala, where a single visual unit (a **grapheme cluster**) can be built from several code points — and standard metrics end up scoring the wrong thing.
 
 `grapheme-kit` redefines these metrics at the **grapheme** level instead of the code-point level. It doesn't replace chrF, chrF++, or CER — it complements them: the standard metrics give you the code-point-local view, `grapheme-kit` gives you the linguistic-unit view. For scripts where the two coincide, the numbers agree. For scripts where they diverge, `grapheme-kit` is the one that matches what a human actually reads.
