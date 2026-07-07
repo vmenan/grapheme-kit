@@ -7,7 +7,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 const links = [
   { href: "/graphemizer", label: "Graphemizer" },
   { href: "/metrics", label: "Metrics" },
-  { href: "/canonicalization", label: "Canonicalization" },
+  { href: "/decomposer", label: "Decomposer" },
 ];
 
 export function TopNav() {

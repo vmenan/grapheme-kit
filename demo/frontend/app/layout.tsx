@@ -4,9 +4,9 @@ import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "grapheme-kit · a grapheme-aware NLP toolkit",
+  title: "graphemeKit",
   description:
-    "Grapheme-aware segmentation, evaluation metrics (chrF, chrF++, CER, CharBLEU), distance measures, and Tamil/Sinhala canonicalization.",
+    "Grapheme-aware segmentation, evaluation metrics (chrF, chrF++, CER, CharBLEU), distance measures, and Tamil/Sinhala decomposition and composition.",
 };
 
 // Sets the `dark` class before hydration so there's no flash of the wrong theme.

@@ -12,7 +12,7 @@ const SAMPLE_UNITS = "வ்அண்அக்க்அம் ආය්උබ්
 
 type Mode = "decompose" | "compose";
 
-export default function CanonicalizationPage() {
+export default function DecomposerPage() {
   const [mode, setMode] = useState<Mode>("decompose");
 
   // --- Decomposition ---
@@ -79,7 +79,7 @@ export default function CanonicalizationPage() {
     <div className="py-2">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-ink">Canonicalization</h1>
+          <h1 className="text-2xl font-bold text-ink">Decomposer</h1>
           <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
             Two inverse operations on grapheme clusters: decompose into phonetic
             units, or compose units back into a full grapheme.
@@ -134,6 +134,11 @@ export default function CanonicalizationPage() {
                   title="Decomposed (phonetic units)"
                   subtitle="boxed = units from one grapheme"
                 >
+                  <div className="mb-4 rounded-lg bg-slate-50 p-4 dark:bg-slate-900/50">
+                    <p className="indic break-words text-xl text-ink">
+                      {decomposeResult.decomposed}
+                    </p>
+                  </div>
                   <GraphemeGroups groups={decomposeResult.groups} />
                 </Section>
 
@@ -198,6 +203,11 @@ export default function CanonicalizationPage() {
                   title="Composed (grapheme clusters)"
                   subtitle={`${composeResult.composed_graphemes.length} graphemes`}
                 >
+                  <div className="mb-4 rounded-lg bg-slate-50 p-4 dark:bg-slate-900/50">
+                    <p className="indic break-words text-xl text-ink">
+                      {composeResult.composed}
+                    </p>
+                  </div>
                   <GraphemeChips graphemes={composeResult.composed_graphemes} />
                 </Section>
               </>

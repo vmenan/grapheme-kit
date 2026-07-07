@@ -16,11 +16,11 @@ const cards = [
     cta: "Open metrics →",
   },
   {
-    href: "/canonicalization",
-    title: "Canonicalization",
+    href: "/decomposer",
+    title: "Decomposer",
     blurb:
       "Decompose complex scripts into their phonetic units, and compose those units back into a full grapheme - the two inverse operations behind grapheme normalization.",
-    cta: "Open canonicalization →",
+    cta: "Open decomposer →",
   },
 ];
 
