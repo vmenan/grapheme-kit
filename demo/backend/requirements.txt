@@ -1,4 +1,4 @@
-# Web layer only. The graphemes_plusplus library itself (and its deps:
+# Web layer only. The grapheme_kit library itself (and its deps:
 # grapheme, sacrebleu, textdistance, numpy, ...) is installed separately from
 # the repo root, e.g.  pip install ../..   (see Dockerfile / README).
 fastapi>=0.115

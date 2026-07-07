@@ -33,6 +33,13 @@ export interface DecomposeResponse {
   round_trip_ok: boolean;
 }
 
+export interface ComposeResponse {
+  input: string;
+  composed: string;
+  composed_graphemes: string[];
+  groups: GraphemeGroup[];
+}
+
 export interface DistanceResponse {
   grapheme_levenshtein: number;
   codepoint_levenshtein: number;

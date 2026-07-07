@@ -1,5 +1,5 @@
 # One-command local stack:  cd demo && docker compose up --build
-# - api: FastAPI backend running the real graphemes_plusplus library (port 7860)
+# - api: FastAPI backend running the real grapheme_kit library (port 7860)
 # - web: Next.js dev server (port 3000), talking to the api on localhost:7860
 services:
   api:

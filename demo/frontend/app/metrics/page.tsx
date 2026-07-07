@@ -10,8 +10,8 @@ import { ScoreHighlight } from "@/components/ScoreHighlight";
 import { GraphemeChips } from "@/components/GraphemeChips";
 import { FileDrop } from "@/components/FileDrop";
 
-const SAMPLE_REF = "ஸ்ரீலங்கா ஒரு அழகான தீவு நாடு.";
-const SAMPLE_HYP = "ஶ்ரீலங்கா ஒரு அழகான தீவு நாடு.";
+const SAMPLE_REF = "Hello வணக்கம் ආයුබෝවන් مَرْحَبًا שָׁלוֹם";
+const SAMPLE_HYP = "Hello வணக்கம் ආයුබෝවන් مرحبا שלום";
 
 type Mode = "text" | "files";
 
@@ -76,7 +76,7 @@ export default function MetricsPage() {
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-ink">Evaluation Metrics</h1>
-          <p className="mt-1 text-sm text-slate-600">
+          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
             Grapheme-level scores next to their unicode-point baselines.
           </p>
         </div>
@@ -88,14 +88,14 @@ export default function MetricsPage() {
               onChange={setFocus}
             />
           )}
-          <div className="inline-flex rounded-md border border-slate-300 p-0.5 text-sm">
+          <div className="inline-flex rounded-md border border-slate-300 p-0.5 text-sm dark:border-slate-700">
             {(["text", "files"] as Mode[]).map((m) => (
               <button
                 key={m}
                 onClick={() => setMode(m)}
                 className={
                   "rounded px-3 py-1 capitalize transition " +
-                  (mode === m ? "bg-ink text-white" : "text-slate-600")
+                  (mode === m ? "bg-ink text-white dark:text-slate-900" : "text-slate-600 dark:text-slate-400")
                 }
               >
                 {m}
@@ -113,7 +113,7 @@ export default function MetricsPage() {
                 value={reference}
                 onChange={(e) => setReference(e.target.value)}
                 rows={4}
-                className="indic w-full resize-y rounded-lg border border-slate-300 p-3 text-lg focus:border-ink focus:outline-none"
+                className="indic w-full resize-y rounded-lg border border-slate-300 bg-white p-3 text-lg text-ink focus:border-ink focus:outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 placeholder="Reference text…"
               />
             </Field>
@@ -122,12 +122,12 @@ export default function MetricsPage() {
                 value={hypothesis}
                 onChange={(e) => setHypothesis(e.target.value)}
                 rows={4}
-                className="indic w-full resize-y rounded-lg border border-slate-300 p-3 text-lg focus:border-ink focus:outline-none"
+                className="indic w-full resize-y rounded-lg border border-slate-300 bg-white p-3 text-lg text-ink focus:border-ink focus:outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 placeholder="Predicted text…"
               />
             </Field>
             {result && (
-              <div className="space-y-3 rounded-lg border border-slate-200 p-4">
+              <div className="space-y-3 rounded-lg border border-slate-200 p-4 dark:border-slate-700">
                 <Breakdown
                   title="Reference graphemes"
                   graphemes={result.reference_graphemes}
@@ -151,9 +151,8 @@ export default function MetricsPage() {
               <>
                 <ScoreHighlight rows={result.metrics} />
                 <MetricTable rows={result.metrics} focus={focus} />
-                <p className="text-xs text-slate-400">
-                  All values come straight from the graphemes++ library and
-                  sacrebleu.
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  All values come straight from the grapheme-kit library.
                 </p>
               </>
             )}
@@ -169,13 +168,13 @@ export default function MetricsPage() {
               onPick={setPredFile}
             />
           </div>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-500 dark:text-slate-400">
             One sentence per line, reference and prediction line-aligned.
           </p>
           <button
             onClick={runCorpus}
             disabled={!refFile || !predFile || corpusLoading}
-            className="rounded-md bg-ink px-4 py-2 text-sm font-medium text-white disabled:opacity-40"
+            className="rounded-md bg-ink px-4 py-2 text-sm font-medium text-white dark:text-slate-900 disabled:opacity-40"
           >
             {corpusLoading ? "Computing…" : "Compute corpus metrics"}
           </button>
@@ -184,7 +183,7 @@ export default function MetricsPage() {
           {corpus && (
             <div className="space-y-4">
               {!corpus.aligned && (
-                <div className="rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-800">
+                <div className="rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-800 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-200">
                   Files differ in length ({corpus.reference_lines} vs{" "}
                   {corpus.prediction_lines} lines). Compared the first{" "}
                   {corpus.line_count}.
@@ -204,7 +203,7 @@ export default function MetricsPage() {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">
+      <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
         {label}
       </span>
       {children}
@@ -216,7 +215,7 @@ function Breakdown({ title, graphemes }: { title: string; graphemes: string[] })
   return (
     <div>
       <div className="mb-1 flex items-center justify-between">
-        <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+        <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
           {title}
         </span>
         <span className="text-xs text-slate-400">{graphemes.length} graphemes</span>
@@ -228,9 +227,9 @@ function Breakdown({ title, graphemes }: { title: string; graphemes: string[] })
 
 function ErrorBox({ message }: { message: string }) {
   return (
-    <div className="rounded-md border border-rose-300 bg-rose-50 px-3 py-2 text-sm text-rose-800">
+    <div className="rounded-md border border-rose-300 bg-rose-50 px-3 py-2 text-sm text-rose-800 dark:border-rose-800 dark:bg-rose-950 dark:text-rose-200">
       {message}
-      <div className="mt-1 text-xs text-rose-500">
+      <div className="mt-1 text-xs text-rose-500 dark:text-rose-400">
         Is the backend running at the configured API URL?
       </div>
     </div>
@@ -240,9 +239,9 @@ function ErrorBox({ message }: { message: string }) {
 function CorpusRows({ corpus }: { corpus: CorpusResponse }) {
   if (!corpus.rows.length) return null;
   return (
-    <div className="overflow-x-auto rounded-lg border border-slate-200">
+    <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
       <table className="w-full text-sm">
-        <thead className="bg-slate-50 text-left text-xs uppercase tracking-wide text-slate-500">
+        <thead className="bg-slate-50 text-left text-xs uppercase tracking-wide text-slate-500 dark:bg-slate-800 dark:text-slate-400">
           <tr>
             <th className="px-3 py-2">#</th>
             <th className="px-3 py-2">Reference</th>
@@ -252,16 +251,16 @@ function CorpusRows({ corpus }: { corpus: CorpusResponse }) {
             <th className="px-3 py-2 text-right">CER</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-100">
+        <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
           {corpus.rows.map((r) => (
-            <tr key={r.index} className="hover:bg-slate-50">
+            <tr key={r.index} className="hover:bg-slate-50 dark:hover:bg-slate-800/60">
               <td className="px-3 py-2 text-slate-400">{r.index + 1}</td>
               <td className="indic max-w-xs truncate px-3 py-2">{r.reference}</td>
               <td className="indic max-w-xs truncate px-3 py-2">{r.prediction}</td>
               <td className="px-3 py-2 text-right font-mono tabular-nums">
                 {r.grapheme_chrf.toFixed(2)}
               </td>
-              <td className="px-3 py-2 text-right font-mono tabular-nums text-slate-500">
+              <td className="px-3 py-2 text-right font-mono tabular-nums text-slate-500 dark:text-slate-400">
                 {r.std_chrf.toFixed(2)}
               </td>
               <td className="px-3 py-2 text-right font-mono tabular-nums">

@@ -1,4 +1,4 @@
-"""FastAPI app exposing the graphemes++ library for the demo website.
+"""FastAPI app exposing the grapheme-kit library for the demo website.
 
 Run locally:
     uvicorn app.main:app --reload --port 7860
@@ -13,11 +13,8 @@ from __future__ import annotations
 import os
 import sys
 
-# NOTE: graphemes_plusplus/graphemizer.py currently has an unguarded module-level
-# `print(...)` (debug leftover, lines 35-36) that runs on import. On a Windows
-# cp1252 stdout this crashes when emitting Sinhala text. Force UTF-8 on the
-# streams *before* importing the library so the demo is robust on every host.
-# (The library should drop those stray prints — flagged separately.)
+# Force UTF-8 on stdout/stderr before importing the library, so Tamil/Sinhala
+# (or any non-Latin) output never crashes on a non-UTF-8 host console.
 for _stream in (sys.stdout, sys.stderr):
     try:
         _stream.reconfigure(encoding="utf-8")  # type: ignore[union-attr]
@@ -42,10 +39,11 @@ from app.schemas import (
 )
 
 app = FastAPI(
-    title="graphemes++ demo API",
+    title="grapheme-kit demo API",
     version="0.1.0",
-    description="Grapheme segmentation, decomposition and evaluation metrics "
-    "for Tamil and Sinhala, powered by the graphemes_plusplus library.",
+    description="Grapheme-aware segmentation, distance, decomposition/composition, "
+    "and evaluation metrics for any language, with deep Tamil and Sinhala script "
+    "support, powered by the grapheme_kit library.",
 )
 
 _origins_env = os.getenv("GRAPHEMES_CORS_ORIGINS", "*")

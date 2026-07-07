@@ -1,7 +1,7 @@
-# Backend image for the graphemes++ demo.
+# Backend image for the grapheme-kit demo.
 #
 # Build context MUST be the repository root so the library source is available:
-#     docker build -f demo/backend/Dockerfile -t graphemes-demo-api .
+#     docker build -f demo/backend/Dockerfile -t grapheme-kit-demo-api .
 #
 # Portable across hosts: the server binds to $PORT (default 7860, which is what
 # Hugging Face Spaces expects). On Koyeb / your own box, $PORT is injected.

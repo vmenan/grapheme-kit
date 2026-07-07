@@ -14,7 +14,7 @@ export function MetricFocusSelect({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm text-ink shadow-sm focus:border-ink focus:outline-none"
+      className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm text-ink shadow-sm focus:border-ink focus:outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
     >
       <option value="all">All metrics</option>
       {families.map((f) => (

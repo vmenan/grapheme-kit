@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class",
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -12,8 +13,8 @@ const config: Config = {
         mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       colors: {
-        ink: "#0f172a",
-        accent: "#1e293b",
+        ink: "var(--color-ink)",
+        accent: "var(--color-accent)",
       },
     },
   },

@@ -5,6 +5,13 @@
 :root {
   --font-mono: "JetBrains Mono", "Noto Sans Tamil", "Noto Sans Sinhala",
     ui-monospace, SFMono-Regular, Menlo, monospace;
+  --color-ink: #0f172a;
+  --color-accent: #1e293b;
+}
+
+.dark {
+  --color-ink: #f1f5f9;
+  --color-accent: #cbd5e1;
 }
 
 html,
@@ -17,6 +24,12 @@ body {
   background: #ffffff;
   color: #0f172a;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.dark body {
+  background: #0b1120;
+  color: #e2e8f0;
 }
 
 /* Indic text needs a generous line-height so combining marks aren't clipped. */

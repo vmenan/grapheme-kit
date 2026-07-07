@@ -16,11 +16,11 @@ const cards = [
     cta: "Open metrics →",
   },
   {
-    href: "/decompose",
-    title: "Tamil / Sinhala Decomposition",
+    href: "/canonicalization",
+    title: "Canonicalization",
     blurb:
-      "Segment text into visually-perceived grapheme clusters and decompose complex scripts into their phonetic units - then recompose to verify the round-trip.",
-    cta: "Open decomposition →",
+      "Decompose complex scripts into their phonetic units, and compose those units back into a full grapheme - the two inverse operations behind grapheme normalization.",
+    cta: "Open canonicalization →",
   },
 ];
 
@@ -28,13 +28,14 @@ export default function Home() {
   return (
     <div className="py-6">
       <h1 className="font-mono text-4xl font-bold tracking-tight text-ink">
-        graphemes<span className="text-slate-400">++</span>
+        grapheme<span className="text-slate-400">Kit</span>
       </h1>
-      <p className="mt-3 max-w-2xl text-lg text-slate-600">
-        A grapheme-aware toolkit for evaluating Tamil and Sinhala text. One
-        visually-perceived character is often several Unicode code points - these
-        tools measure at the <span className="font-medium text-ink">grapheme</span>{" "}
-        level, complementing character-based metrics like chrF.
+      <p className="mt-3 max-w-2xl text-lg text-slate-600 dark:text-slate-400">
+        A grapheme-aware toolkit for segmenting, comparing, and evaluating text.
+        One visually-perceived character is often several Unicode code points -
+        these tools measure at the{" "}
+        <span className="font-medium text-ink">grapheme</span> level,
+        complementing character-based metrics like chrF.
       </p>
 
       <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
@@ -42,10 +43,10 @@ export default function Home() {
           <Link
             key={c.href}
             href={c.href}
-            className="group rounded-xl border border-slate-200 p-6 transition hover:border-ink hover:shadow-sm"
+            className="group rounded-xl border border-slate-200 p-6 transition hover:border-ink hover:shadow-sm dark:border-slate-800"
           >
             <h2 className="text-xl font-semibold text-ink">{c.title}</h2>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
               {c.blurb}
             </p>
             <span className="mt-4 inline-block text-sm font-medium text-ink group-hover:underline">

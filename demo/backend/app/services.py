@@ -1,8 +1,9 @@
-"""Thin service layer over the ``graphemes_plusplus`` library.
+"""Thin service layer over the ``grapheme_kit`` library.
 
 This module is the *single* boundary between the web API and the library.
 Every number the website shows is produced here by calling the real library
-(and ``sacrebleu`` for the code-point baselines), so the demo is paper-grade.
+(and ``sacrebleu``/``textdistance`` for the code-point baselines), so the
+demo is paper-grade.
 """
 
 from __future__ import annotations
@@ -12,8 +13,9 @@ from functools import lru_cache
 import textdistance
 from sacrebleu.metrics import CHRF as StdCHRF
 
-from graphemes_plusplus import Graphemizer, compose, decompose, hamming, levenshtein
-from graphemes_plusplus.metric import CER, GraphemeCHRF
+from grapheme_kit import Graphemizer, compose, decompose, hamming, levenshtein
+from grapheme_kit.distance import damerau_levenshtein, jaro, jaro_winkler, longest_common_subsequence
+from grapheme_kit.metric import CER, GraphemeCHRF, charbleu
 
 # --- Reusable metric instances ------------------------------------------------
 # Grapheme-aware (our library) vs. standard code-point (sacrebleu) baselines.
@@ -75,7 +77,26 @@ def get_decompose(text: str) -> dict:
 
 def get_compose(text: str) -> dict:
     composed = compose(text)
-    return {"input": text, "composed": composed}
+    composed_graphemes = list(Graphemizer(composed).graphemes)
+
+    # Mirror get_decompose's grouping, in reverse: walk the input's grapheme
+    # units and, for each output grapheme, consume however many units its own
+    # decomposition would produce. This lets the UI box "the units that merged
+    # into this grapheme" exactly like the decomposition view does.
+    input_units = list(Graphemizer(text).graphemes)
+    groups = []
+    idx = 0
+    for g in composed_graphemes:
+        n_units = len(Graphemizer(decompose(g)).graphemes) or 1
+        groups.append({"source": g, "units": input_units[idx : idx + n_units]})
+        idx += n_units
+
+    return {
+        "input": text,
+        "composed": composed,
+        "composed_graphemes": composed_graphemes,
+        "groups": groups,
+    }
 
 
 # --- Distance -----------------------------------------------------------------
@@ -97,8 +118,9 @@ def get_distance(s1: str, s2: str) -> dict:
 def _metric_rows_sentence(reference: str, hypothesis: str) -> list[dict]:
     """Build the comparison table for one (reference, hypothesis) pair.
 
-    ``higher_better`` lets the UI colour/sort sensibly. chrF/chrF++ are
-    0-100 (higher better); CER and Levenshtein are error counts (lower better).
+    ``higher_better`` lets the UI colour/sort sensibly. chrF/chrF++/Jaro/
+    Jaro-Winkler/LCS/CharBLEU are higher-is-better; CER and the edit distances
+    are lower-is-better error counts.
     """
     rows = [
         {
@@ -164,6 +186,80 @@ def _metric_rows_sentence(reference: str, hypothesis: str) -> list[dict]:
             "level": "codepoint",
             "value": textdistance.levenshtein.distance(reference, hypothesis),
             "higher_better": False,
+        },
+        {
+            "key": "grapheme_damerau_levenshtein",
+            "label": "Damerau-Levenshtein",
+            "family": "Damerau-Levenshtein",
+            "level": "grapheme",
+            "value": damerau_levenshtein(reference, hypothesis),
+            "higher_better": False,
+        },
+        {
+            "key": "codepoint_damerau_levenshtein",
+            "label": "Damerau-Levenshtein",
+            "family": "Damerau-Levenshtein",
+            "level": "codepoint",
+            "value": textdistance.damerau_levenshtein.distance(reference, hypothesis),
+            "higher_better": False,
+        },
+        {
+            "key": "grapheme_jaro",
+            "label": "Jaro",
+            "family": "Jaro",
+            "level": "grapheme",
+            "value": _round(jaro(reference, hypothesis)),
+            "higher_better": True,
+        },
+        {
+            "key": "codepoint_jaro",
+            "label": "Jaro",
+            "family": "Jaro",
+            "level": "codepoint",
+            "value": _round(textdistance.jaro.normalized_similarity(reference, hypothesis)),
+            "higher_better": True,
+        },
+        {
+            "key": "grapheme_jaro_winkler",
+            "label": "Jaro-Winkler",
+            "family": "Jaro-Winkler",
+            "level": "grapheme",
+            "value": _round(jaro_winkler(reference, hypothesis)),
+            "higher_better": True,
+        },
+        {
+            "key": "codepoint_jaro_winkler",
+            "label": "Jaro-Winkler",
+            "family": "Jaro-Winkler",
+            "level": "codepoint",
+            "value": _round(
+                textdistance.jaro_winkler.normalized_similarity(reference, hypothesis)
+            ),
+            "higher_better": True,
+        },
+        {
+            "key": "grapheme_lcs",
+            "label": "Longest Common Subsequence",
+            "family": "LCS",
+            "level": "grapheme",
+            "value": longest_common_subsequence(reference, hypothesis),
+            "higher_better": True,
+        },
+        {
+            "key": "codepoint_lcs",
+            "label": "Longest Common Subsequence",
+            "family": "LCS",
+            "level": "codepoint",
+            "value": textdistance.lcsseq.similarity(reference, hypothesis),
+            "higher_better": True,
+        },
+        {
+            "key": "grapheme_charbleu",
+            "label": "CharBLEU",
+            "family": "CharBLEU",
+            "level": "grapheme",
+            "value": _round(charbleu(reference, hypothesis)),
+            "higher_better": True,
         },
     ]
     return rows
@@ -310,6 +406,6 @@ def library_version() -> str:
     try:
         from importlib.metadata import version
 
-        return version("graphemes-plusplus")
+        return version("grapheme-kit")
     except Exception:  # pragma: no cover - best effort only
         return "unknown"

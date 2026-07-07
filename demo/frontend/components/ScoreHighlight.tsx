@@ -26,11 +26,11 @@ export function ScoreHighlight({ rows }: { rows: MetricRow[] }) {
           className={
             "rounded-lg border p-4 " +
             (strong
-              ? "border-emerald-300 bg-emerald-50"
-              : "border-slate-200 bg-white")
+              ? "border-emerald-300 bg-emerald-50 dark:border-emerald-800 dark:bg-emerald-950"
+              : "border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900")
           }
         >
-          <div className="text-xs uppercase tracking-wide text-slate-500">
+          <div className="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">
             {title}
           </div>
           <div className="mt-1 font-mono text-3xl font-semibold tabular-nums text-ink">

@@ -2,6 +2,7 @@
 // Base URL is configured at build time via NEXT_PUBLIC_API_BASE_URL.
 
 import type {
+  ComposeResponse,
   CorpusResponse,
   DecomposeResponse,
   DistanceResponse,
@@ -42,6 +43,10 @@ export function getMetrics(
 
 export function getDecompose(text: string): Promise<DecomposeResponse> {
   return postJSON("/api/decompose", { text });
+}
+
+export function getCompose(text: string): Promise<ComposeResponse> {
+  return postJSON("/api/compose", { text });
 }
 
 export function getGraphemes(text: string): Promise<GraphemesResponse> {

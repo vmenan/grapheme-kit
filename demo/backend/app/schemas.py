@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field
 
 
 class TextRequest(BaseModel):
-    text: str = Field(default="", description="Input text (Tamil / Sinhala / mixed).")
+    text: str = Field(default="", description="Input text (any language).")
 
 
 class PairRequest(BaseModel):
@@ -53,6 +53,8 @@ class DecomposeResponse(BaseModel):
 class ComposeResponse(BaseModel):
     input: str
     composed: str
+    composed_graphemes: list[str]
+    groups: list[GraphemeGroup]
 
 
 class DistanceResponse(BaseModel):
