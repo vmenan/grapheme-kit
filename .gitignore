@@ -8,3 +8,4 @@ build/
 .plan/docs/site/
 docs/site/
 .plan/
+docs/.wrangler/
