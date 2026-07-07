@@ -9,7 +9,7 @@ The `GraphemeCHRF` class inherits from `sacrebleu`'s `CHRF` but overrides the to
 You can compute a single score across an entire corpus using `corpus_score`. The method expects a list of hypothesis strings and a list of lists of reference strings.
 
 ```python
-from graphemes_plusplus.metric import GraphemeCHRF
+from grapheme_kit.metric import GraphemeCHRF
 
 hypotheses = ["Good morning, how are you?"]
 references = [["Good morning, how are you today?"]]
@@ -23,7 +23,7 @@ print(score.score)
 ### Sentence-level Scoring
 
 ```python
-from graphemes_plusplus.metric import GraphemeCHRF
+from grapheme_kit.metric import GraphemeCHRF
 
 metric = GraphemeCHRF()
 score = metric.sentence_score("Guten Morgen", ["Guten Morgen zusammen"])
@@ -36,7 +36,7 @@ print(score.score)
 Standard chrF calculates n-grams at the character (or grapheme) level. **chrF++** improves this by also incorporating word-level n-grams, which helps capture word order information. Pass `word_order=2` (bigrams is the standard) to enable it.
 
 ```python
-from graphemes_plusplus.metric import GraphemeCHRF
+from grapheme_kit.metric import GraphemeCHRF
 
 hypotheses = ["The weather is very nice today"]
 references = [["Today the weather is very nice"]]
@@ -55,7 +55,7 @@ print("chrF++:", metric_chrf_pp.corpus_score(hypotheses, references).score)
 `CER(hypothesis: str, reference: str) -> float` is the Levenshtein edit distance between the hypothesis and reference, divided by the number of graphemes in the reference.
 
 ```python
-from graphemes_plusplus.metric import CER
+from grapheme_kit.metric import CER
 
 # Sinhala: one substitution.
 print(CER("කනවා", "කනව"))
@@ -67,7 +67,7 @@ print(CER("කනවා", "කනව"))
 `charbleu(reference: str, hypothesis: str, max_n: int = 4, weights=None) -> float` computes a BLEU-style n-gram precision score at the grapheme level. Note the argument order is *(reference, hypothesis)*.
 
 ```python
-from graphemes_plusplus.metric import charbleu
+from grapheme_kit.metric import charbleu
 
 print(charbleu("Xin chào các bạn", "Xin chào bạn"))
 # Output: 0.9146912192286945
@@ -78,7 +78,7 @@ print(charbleu("Xin chào các bạn", "Xin chào bạn"))
 Run all four metrics on the same hypothesis-reference pair to compare results:
 
 ```python
-from graphemes_plusplus.metric import GraphemeCHRF, CER, charbleu
+from grapheme_kit.metric import GraphemeCHRF, CER, charbleu
 
 hyp = "안녕하세요, 만나서 반갑습니다"
 ref = "안녕하세요, 만나서 반갑습니다요"

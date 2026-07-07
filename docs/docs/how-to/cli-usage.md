@@ -1,11 +1,11 @@
 # Command Line Usage
 
-Installing `graphemes_plusplus` also installs a `gpp` command (long form: `graphemes-plusplus` -- both run the exact same code). Every command reads a positional `TEXT` argument, `--input FILE`, or stdin, and writes to stdout (or `--output FILE`) as text or, with `--format json`, machine-readable JSON.
+Installing `grapheme_kit` also installs a `gkit` command (long form: `grapheme-kit` -- both run the exact same code). Every command reads a positional `TEXT` argument, `--input FILE`, or stdin, and writes to stdout (or `--output FILE`) as text or, with `--format json`, machine-readable JSON.
 
 ## graphemize -- segment text
 
 ```bash
-gpp graphemize "ஸ்ரீ வணக்கம்" --count
+gkit graphemize "ஸ்ரீ வணக்கம்" --count
 ```
 
 **Output:**
@@ -27,7 +27,7 @@ code points: 12
 ## decompose / compose -- Tamil & Sinhala phonetic canonicalization
 
 ```bash
-gpp decompose "ශ්‍රී" --round-trip
+gkit decompose "ශ්‍රී" --round-trip
 ```
 
 **Output:**
@@ -38,12 +38,12 @@ recomposed: ශ්‍රී
 round-trip: OK
 ```
 
-`--round-trip` recomposes the decomposed output and reports whether it matches the original. `gpp compose` reverses a decomposed string back into grapheme clusters.
+`--round-trip` recomposes the decomposed output and reports whether it matches the original. `gkit compose` reverses a decomposed string back into grapheme clusters.
 
 ## distance -- grapheme-aware edit distance
 
 ```bash
-gpp distance "ஸ்ரீ" "ஸ்ரி" --measure levenshtein --level both
+gkit distance "ஸ்ரீ" "ஸ்ரி" --measure levenshtein --level both
 ```
 
 **Output:**
@@ -57,7 +57,7 @@ levenshtein (codepoint): 1
 ## evaluate -- grapheme-aware chrF / chrF++ / CER
 
 ```bash
-gpp evaluate "நல்ல மாணவன்" "நல்ல" --metric chrf
+gkit evaluate "நல்ல மாணவன்" "நல்ல" --metric chrf
 ```
 
 **Output:**
@@ -70,7 +70,7 @@ chrF (grapheme): 37.1051
 ## normalize -- NFC + script-specific typing fixups
 
 ```bash
-gpp normalize "ொ"
+gkit normalize "ொ"
 ```
 
 Applies the same Tamil/Sinhala vowel-reordering and NFC normalization that `Graphemizer` runs internally, without segmenting. Useful for cleaning a dataset before further processing. `--input FILE --output FILE` streams a whole file through normalization.
@@ -79,6 +79,6 @@ Applies the same Tamil/Sinhala vowel-reordering and NFC normalization that `Grap
 
 - `-f, --format {text,json}` -- machine-readable output for piping into other tools.
 - `-o, --output FILE` -- write to a file instead of stdout.
-- Reading input from a positional argument, `-i/--input FILE`, or stdin (so `cat file.txt | gpp graphemize` works).
+- Reading input from a positional argument, `-i/--input FILE`, or stdin (so `cat file.txt | gkit graphemize` works).
 
-Run `gpp --help` or `gpp <command> --help` for the complete, current list of flags.
+Run `gkit --help` or `gkit <command> --help` for the complete, current list of flags.

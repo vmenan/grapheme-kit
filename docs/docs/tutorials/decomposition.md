@@ -18,7 +18,7 @@ For example: `கா` decomposes into `க்` + `ஆ`.
 ## Decomposing Tamil Text
 
 ```python
-from graphemes_plusplus import decompose
+from grapheme_kit import decompose
 
 # "ka" with the "aa" vowel
 print(decompose("கா"))
@@ -32,7 +32,7 @@ print(decompose("வணக்கம்"))
 ## Decomposing Sinhala Text
 
 ```python
-from graphemes_plusplus import decompose
+from grapheme_kit import decompose
 
 print(decompose("සිංහල"))
 # Output: ස්ඉංහ්අල්අ
@@ -43,7 +43,7 @@ print(decompose("සිංහල"))
 Applying `compose()` to a decomposed string will reconstruct the original grapheme clusters.
 
 ```python
-from graphemes_plusplus import decompose, compose
+from grapheme_kit import decompose, compose
 
 original = "வணக்கம்"
 decomposed = decompose(original)
@@ -58,7 +58,7 @@ assert original == restored  # Always true
 Decomposition is particularly useful when you want to programmatically change the vowel of a consonant.
 
 ```python
-from graphemes_plusplus import decompose, compose
+from grapheme_kit import decompose, compose
 
 # Original: "ka" (க + ஆ)
 # Goal: change the vowel to "இ" to get "ki" (கி)

@@ -7,11 +7,11 @@
 
 ## Install from Source
 
-Currently, the recommended way to install `grapheme-kit` is by cloning the repository and syncing dependencies via `uv`. This will set up the library and install both the `graphemes-plusplus` and `gpp` command line executables.
+Currently, the recommended way to install `grapheme-kit` is by cloning the repository and syncing dependencies via `uv`. This will set up the library and install both the `grapheme-kit` and `gkit` command line executables.
 
 ```bash
-git clone https://github.com/vmenan/graphemes_plusplus.git
-cd graphemes_plusplus
+git clone https://github.com/vmenan/grapheme-kit.git
+cd grapheme-kit
 uv sync
 ```
 
@@ -20,7 +20,7 @@ uv sync
 Open a Python shell and try importing the library:
 
 ```python
-from graphemes_plusplus import Graphemizer
+from grapheme_kit import Graphemizer
 
 g = Graphemizer("வணக்கம்")
 print(g.graphemes)
@@ -34,13 +34,13 @@ If you see the output above without any errors, the installation was successful.
 You can also verify that the command-line interface was successfully installed and is available in your environment:
 
 ```bash
-gpp --help
+gkit --help
 ```
 
 Or using the long alias:
 
 ```bash
-graphemes-plusplus --help
+grapheme-kit --help
 ```
 
 Both commands should print the help text detailing the available subcommands and options.

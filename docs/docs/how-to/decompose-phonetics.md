@@ -9,7 +9,7 @@ To decompose text, you can use the `decompose` function. It breaks down clusters
 ### Tamil Example
 
 ```python
-from graphemes_plusplus import decompose
+from grapheme_kit import decompose
 
 decomposed = decompose("கொண்டு")
 print(decomposed)
@@ -19,7 +19,7 @@ print(decomposed)
 ### Sinhala Example
 
 ```python
-from graphemes_plusplus import decompose
+from grapheme_kit import decompose
 
 decomposed = decompose("සිංහල")
 print(decomposed)
@@ -31,7 +31,7 @@ print(decomposed)
 You can pass the decomposed phonetic sequences back into the `compose` function to recreate the visual clusters.
 
 ```python
-from graphemes_plusplus import compose
+from grapheme_kit import compose
 
 composed = compose("க்ஒண்ட்உ")
 print(composed)
@@ -43,7 +43,7 @@ print(composed)
 Applying decomposition and then composition will always yield the original string.
 
 ```python
-from graphemes_plusplus import decompose, compose
+from grapheme_kit import decompose, compose
 
 text = "ஸ்ரீ மதி"
 assert compose(decompose(text)) == text
@@ -56,7 +56,7 @@ print("Round-trip successful!")
 For convenience, `grapheme-kit` provides `decompose` and `compose` as module-level functions. However, if you prefer object-oriented patterns, you can use the class methods directly:
 
 ```python
-from graphemes_plusplus.decomposer import Decomposer, Composer
+from grapheme_kit.decomposer import Decomposer, Composer
 
 # These behave exactly the same as the module-level functions
 d = Decomposer.decompose("வணக்கம்")
@@ -71,7 +71,7 @@ print(c)
 Let's say you want to programmatically change the vowel attached to a consonant. You can achieve this by decomposing the cluster, replacing the vowel, and composing it back.
 
 ```python
-from graphemes_plusplus import decompose, compose
+from grapheme_kit import decompose, compose
 
 def change_vowel(grapheme, new_vowel):
     decomposed = decompose(grapheme)

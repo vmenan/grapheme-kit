@@ -5,7 +5,7 @@
 ## Import
 
 ```python
-from graphemes_plusplus.metric import GraphemeCHRF, CER, charbleu
+from grapheme_kit.metric import GraphemeCHRF, CER, charbleu
 ```
 
 ## API
@@ -34,7 +34,7 @@ Calculates the score for a single sentence.
 **Example**:
 
 ```python
-from graphemes_plusplus.metric import GraphemeCHRF
+from grapheme_kit.metric import GraphemeCHRF
 
 hyp = ["Good morning, how are you?"]
 refs = [["Good morning, how are you today?"]]
@@ -63,7 +63,7 @@ Computes the Character Error Rate (CER) between a hypothesis and reference strin
 **Example**:
 
 ```python
-from graphemes_plusplus.metric import CER
+from grapheme_kit.metric import CER
 
 print(CER("කනවා", "කනව"))
 # Output: 0.3333333333333333
@@ -96,7 +96,7 @@ Grapheme-aware CharBLEU: a character(grapheme)-level BLEU variant. Computes n-gr
 **Example**:
 
 ```python
-from graphemes_plusplus.metric import charbleu
+from grapheme_kit.metric import charbleu
 
 print(charbleu("Xin chào các bạn", "Xin chào bạn"))
 # Output: 0.9146912192286945

@@ -7,7 +7,7 @@ This guide gives you a fast, hands-on experience with every major feature in `gr
 Calculate NLP evaluation metrics scaled to grapheme boundaries. This ensures that a single missed modifier doesn't unfairly penalize the model as multiple code point errors. `grapheme-kit` provides `GraphemeCHRF` (chrF/chrF++), `CER`, and `charbleu`.
 
 ```python
-from graphemes_plusplus.metric import GraphemeCHRF, CER, charbleu
+from grapheme_kit.metric import GraphemeCHRF, CER, charbleu
 
 hypothesis = "සිංහල"
 reference = "සිංහල"
@@ -34,8 +34,8 @@ print(cb_score)
 Compute the edit distance (Levenshtein), Hamming distance, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Longest Common Subsequence between two strings using grapheme-aware calculations.
 
 ```python
-from graphemes_plusplus import levenshtein, hamming
-from graphemes_plusplus.distance import damerau_levenshtein, jaro, jaro_winkler, longest_common_subsequence
+from grapheme_kit import levenshtein, hamming
+from grapheme_kit.distance import damerau_levenshtein, jaro, jaro_winkler, longest_common_subsequence
 
 # "ஸ்ரீ" is 1 grapheme. "ஸ்ரி" is 2 graphemes.
 # Therefore, the Levenshtein distance is 2.
@@ -60,7 +60,7 @@ print(longest_common_subsequence("GATTACA", "GCATCAG"))
 Use `Graphemizer` to split text into visual grapheme clusters correctly.
 
 ```python
-from graphemes_plusplus import Graphemizer
+from grapheme_kit import Graphemizer
 
 text = "ஸ்ரீ மதி"
 g = Graphemizer(text)
@@ -85,7 +85,7 @@ for grapheme in g:
 Break down complex clusters into their phonetic base consonants and vowels, and compose them back seamlessly.
 
 ```python
-from graphemes_plusplus import decompose, compose
+from grapheme_kit import decompose, compose
 
 # Decomposing a complex Tamil cluster
 decomposed = decompose("ஸ்ரீ")

@@ -1,14 +1,16 @@
 site_name: grapheme-kit
 site_description: A grapheme-aware toolkit for linguistically fair NLP evaluation, with deep Tamil and Sinhala script support
 site_author: vmenan
-site_url: https://vmenan.github.io/graphemes_plusplus/
+site_url: https://vmenan.github.io/grapheme-kit/
 
-repo_name: vmenan/graphemes_plusplus
-repo_url: https://github.com/vmenan/graphemes_plusplus
+repo_name: vmenan/grapheme-kit
+repo_url: https://github.com/vmenan/grapheme-kit
 
 theme:
   name: material
   custom_dir: overrides
+  favicon: assets/icon.svg
+  logo: assets/icon.svg
   font:
     text: Outfit
     code: Roboto Mono
@@ -52,7 +54,7 @@ theme:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/vmenan/graphemes_plusplus
+      link: https://github.com/vmenan/grapheme-kit
 
 markdown_extensions:
   - admonition

@@ -7,7 +7,7 @@ This section walks you through your first grapheme segmentation using `grapheme-
 Let's segment a simple Tamil word using the `Graphemizer` class.
 
 ```python
-from graphemes_plusplus import Graphemizer
+from grapheme_kit import Graphemizer
 
 # "vanakkam" — hello in Tamil
 g = Graphemizer("வணக்கம்")
@@ -26,7 +26,7 @@ Notice how `க்` is kept together as a single unit rather than being split in
 The `Graphemizer` instance is directly iterable. You can loop through each grapheme just like a list:
 
 ```python
-from graphemes_plusplus import Graphemizer
+from grapheme_kit import Graphemizer
 
 for grapheme in Graphemizer("வணக்கம்"):
     print(grapheme)

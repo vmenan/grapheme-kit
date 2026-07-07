@@ -5,7 +5,7 @@
 ## Import
 
 ```python
-from graphemes_plusplus import Graphemizer
+from grapheme_kit import Graphemizer
 ```
 
 ## API
@@ -40,7 +40,7 @@ The constructor takes a raw text string, normalizes it, and splits it into graph
 **Example**:
 
 ```python
-from graphemes_plusplus import Graphemizer
+from grapheme_kit import Graphemizer
 
 # Tamil conjunct and space
 g_tamil = Graphemizer("ஸ்ரீ மதி")

@@ -33,8 +33,8 @@ Every branch — segmentation, metrics, distance — ultimately calls the same g
 
 The three interactions above are exposed through two interfaces:
 
-- **Python API** — `import graphemes_plusplus` in a script, notebook, or larger pipeline.
-- **Command Line** (`gpp`, alias for `graphemes-plusplus`) — the same operations (`graphemize`, `distance`, `evaluate`, `decompose`, `compose`, `normalize`), plus file/stdin input and JSON output, for use outside Python. See [Command Line Usage](../how-to/cli-usage.md).
+- **Python API** — `import grapheme_kit` in a script, notebook, or larger pipeline.
+- **Command Line** (`gkit`, alias for `grapheme-kit`) — the same operations (`graphemize`, `distance`, `evaluate`, `decompose`, `compose`, `normalize`), plus file/stdin input and JSON output, for use outside Python. See [Command Line Usage](../how-to/cli-usage.md).
 
 Both interfaces are thin wrappers over the same engine — a Python API call and the equivalent CLI invocation always produce the same numbers.
 

@@ -5,8 +5,8 @@
 ## Import
 
 ```python
-from graphemes_plusplus import compose
-from graphemes_plusplus.composer import Composer
+from grapheme_kit import compose
+from grapheme_kit.composer import Composer
 ```
 
 ## API
@@ -30,7 +30,7 @@ A convenience module-level function that wraps `Composer.compose()`. It recompos
 **Example**:
 
 ```python
-from graphemes_plusplus import decompose, compose
+from grapheme_kit import decompose, compose
 
 # Recomposing a decomposed Tamil string
 print(compose("க்ஒண்ட்உ"))

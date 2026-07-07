@@ -5,7 +5,7 @@
 ## Import
 
 ```python
-from graphemes_plusplus.distance import (
+from grapheme_kit.distance import (
     levenshtein,
     hamming,
     damerau_levenshtein,
@@ -40,8 +40,8 @@ Length of the longest sequence of graphemes (not necessarily contiguous) common 
 **Example**:
 
 ```python
-from graphemes_plusplus import levenshtein, hamming
-from graphemes_plusplus.distance import damerau_levenshtein, jaro, jaro_winkler, longest_common_subsequence
+from grapheme_kit import levenshtein, hamming
+from grapheme_kit.distance import damerau_levenshtein, jaro, jaro_winkler, longest_common_subsequence
 
 # "ஸ்ரீ" is 1 grapheme. "ஸ்ரி" is 2 graphemes.
 print(levenshtein("ஸ்ரீ", "ஸ்ரி"))

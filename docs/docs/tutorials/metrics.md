@@ -13,7 +13,7 @@ Consider the Tamil word for "Shri" written as `ஸ்ரீ`. A standard code-po
 ## Character Error Rate (CER)
 
 ```python
-from graphemes_plusplus.metric import CER
+from grapheme_kit.metric import CER
 
 # English: code point and grapheme are the same thing here, so this
 # matches a standard character-level CER exactly.
@@ -28,7 +28,7 @@ print(CER("කනවා", "කනව"))
 ## GraphemeCHRF (chrF and chrF++)
 
 ```python
-from graphemes_plusplus.metric import GraphemeCHRF
+from grapheme_kit.metric import GraphemeCHRF
 
 metric = GraphemeCHRF()
 
@@ -44,7 +44,7 @@ print(metric.corpus_score(["நல்ல"], [["நல்ல மாணவன்"]
 ## CharBLEU
 
 ```python
-from graphemes_plusplus.metric import charbleu
+from grapheme_kit.metric import charbleu
 
 # note argument order: (reference, hypothesis)
 print(charbleu("Good morning everyone", "Good morning everybody"))

@@ -5,8 +5,8 @@
 ## Import
 
 ```python
-from graphemes_plusplus import decompose
-from graphemes_plusplus.decomposer import Decomposer
+from grapheme_kit import decompose
+from grapheme_kit.decomposer import Decomposer
 ```
 
 ## API
@@ -30,7 +30,7 @@ A convenience module-level function that wraps `Decomposer.decompose()`. It brea
 **Example**:
 
 ```python
-from graphemes_plusplus import decompose
+from grapheme_kit import decompose
 
 print(decompose("கொண்டு"))
 # Output: க்ஒண்ட்உ

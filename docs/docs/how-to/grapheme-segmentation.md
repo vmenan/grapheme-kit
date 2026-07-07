@@ -7,7 +7,7 @@ This guide covers practical patterns for segmenting text using `Graphemizer`.
 The most basic use case is passing a string to `Graphemizer` and accessing the `.graphemes` property to get a list of the visual clusters.
 
 ```python
-from graphemes_plusplus import Graphemizer
+from grapheme_kit import Graphemizer
 
 g = Graphemizer("வணக்கம்")
 print(g.graphemes)
@@ -19,7 +19,7 @@ print(g.graphemes)
 When checking the length of an Indic text string, the built-in `len()` function will often return an inflated number because it counts code points. You can pass the `Graphemizer` object directly to `len()` for an accurate count.
 
 ```python
-from graphemes_plusplus import Graphemizer
+from grapheme_kit import Graphemizer
 
 text = "ஸ்ரீ"
 
@@ -36,7 +36,7 @@ print(len(g))
 The `Graphemizer` instance acts as an iterator. You can easily loop through the graphemes using a standard `for` loop.
 
 ```python
-from graphemes_plusplus import Graphemizer
+from grapheme_kit import Graphemizer
 
 g = Graphemizer("සිංහල")
 
@@ -55,7 +55,7 @@ for char in g:
 `Graphemizer` is robust enough to handle strings containing multiple scripts seamlessly. Punctuation, spaces, and English characters are passed through correctly without breaking the Indic segmentation logic.
 
 ```python
-from graphemes_plusplus import Graphemizer
+from grapheme_kit import Graphemizer
 
 text = "Hello வணக்கம், world!"
 g = Graphemizer(text)
@@ -69,7 +69,7 @@ print(g.graphemes)
 If you have a list of sentences (e.g., from a dataset), you can use a list comprehension to process them all.
 
 ```python
-from graphemes_plusplus import Graphemizer
+from grapheme_kit import Graphemizer
 
 corpus = [
     "வணக்கம்",

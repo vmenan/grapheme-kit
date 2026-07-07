@@ -9,7 +9,7 @@ Some sequences of characters merge visually to form a completely new shape, know
 A common Tamil conjunct is `க்ஷ` (Ksha). It is composed of two separate clusters `க்` and `ஷ`, but visually it renders as one inseparable unit.
 
 ```python
-from graphemes_plusplus import Graphemizer
+from grapheme_kit import Graphemizer
 
 # Without grapheme-kit, this would split into ['க்', 'ஷ', ...]
 g = Graphemizer("க்ஷத்ரியன்")
@@ -25,7 +25,7 @@ The library uses a look-ahead rule: if the current cluster is `க்` and the n
 Another important conjunct is the honorific "Shri" in Tamil, which can be written as `ஸ்ரீ` or `ஶ்ரீ`. These consist of two separate Unicode clusters but visually render as one symbol.
 
 ```python
-from graphemes_plusplus import Graphemizer
+from grapheme_kit import Graphemizer
 
 print(Graphemizer("ஸ்ரீ").graphemes)
 # Output: ['ஸ்ரீ']   — correctly kept as 1 grapheme
@@ -41,7 +41,7 @@ Sinhala script makes extensive use of the **Zero-Width Joiner** (ZWJ, `U+200D`).
 For example, `ක්` followed by ZWJ followed by `ර` renders as the single conjunct `ක්‍ර`.
 
 ```python
-from graphemes_plusplus import Graphemizer
+from grapheme_kit import Graphemizer
 
 # The string contains an invisible ZWJ between ක් and ර
 g = Graphemizer("ක්‍රමය")

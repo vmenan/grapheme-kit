@@ -6,18 +6,20 @@ Every character-level NLP metric — chrF, CER, edit distance — silently assum
 
 For example, standard Python sees the Tamil word "Shri" (`ஸ்ரீ`) as 4 separate code points. Visually, and linguistically, it is a single cluster. `grapheme-kit` treats it as 1 grapheme — and scores it that way everywhere: segmentation, distance, and evaluation metrics alike.
 
+Try out the library directly in your browser at the [Grapheme-Kit Live Demo](https://grapheme-kit.pages.dev/){:target="_blank"}.
+
 ## Key Features
 
 - **Grapheme-Aware Evaluation Metrics**: chrF, chrF++, Character Error Rate (`CER`), and CharBLEU, redefined at the grapheme boundary instead of the code-point boundary — usable on any language, most impactful on complex scripts.
 - **Grapheme-Aware Distance**: Levenshtein, Damerau-Levenshtein, Hamming, Jaro, Jaro-Winkler, and Longest Common Subsequence, all computed over grapheme clusters instead of code points.
 - **Accurate Segmentation**: resolves multi-code-point visual clusters and conjuncts correctly, including Tamil conjuncts and Sinhala ZWJ sequences.
 - **Phonetic Canonicalization**: decompose Tamil/Sinhala graphemes into consonant + vowel and compose them back — the one part of the library that is genuinely script-specific.
-- **Two Interfaces**: a Python API and a `gpp` command-line tool, so the same grapheme-aware numbers are available whether you're scripting, exploring in a notebook, or piping text on the command line.
+- **Two Interfaces**: a Python API and a `gkit` command-line tool, so the same grapheme-aware numbers are available whether you're scripting, exploring in a notebook, or piping text on the command line.
 
 ## Quick Example
 
 ```python
-from graphemes_plusplus.metric import CER
+from grapheme_kit.metric import CER
 
 # A speech-recognition system drops one vowel marker from "kanawa".
 reference  = "කනවා"
@@ -39,7 +41,7 @@ The problem isn't Tamil or Sinhala specifically — it's that code points and vi
 | **Tamil, Sinhala, and other scripts where one grapheme spans several code points** | Silently wrong — miscounts the error rate | Correct — scores the visual unit, not the encoding |
 | **Segmentation** | Splits on code points | Splits on grapheme clusters (Tamil conjuncts, Sinhala ZWJ) |
 | **Phonetic decomposition** | Not applicable | Decompose/compose Tamil & Sinhala graphemes into consonant + vowel |
-| **Interfaces** | — | Python API and `gpp` command-line tool |
+| **Interfaces** | — | Python API and `gkit` command-line tool |
 
 ## Documentation Map
 
