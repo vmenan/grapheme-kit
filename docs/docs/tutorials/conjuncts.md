@@ -11,7 +11,7 @@ A common Tamil conjunct is `க்ஷ` (Ksha). It is composed of two separate cl
 ```python
 from graphemes_plusplus import Graphemizer
 
-# Without graphemes++, this would split into ['க்', 'ஷ', ...]
+# Without grapheme-kit, this would split into ['க்', 'ஷ', ...]
 g = Graphemizer("க்ஷத்ரியன்")
 
 print(g.graphemes)
@@ -50,7 +50,7 @@ print(g.graphemes)
 # Output: ['ක්‍ර', 'ම', 'ය']
 ```
 
-`graphemes++` maintains an internal list of valid Sinhala ZWJ sequences and ensures they are always preserved as a single grapheme.
+`grapheme-kit` maintains an internal list of valid Sinhala ZWJ sequences and ensures they are always preserved as a single grapheme.
 
 ---
 

@@ -1,6 +1,6 @@
 # Segmenting Text
 
-This section walks you through your first grapheme segmentation using `graphemes++`.
+This section walks you through your first grapheme segmentation using `grapheme-kit`.
 
 ## Your First Segmentation
 

@@ -53,7 +53,7 @@ print("Round-trip successful!")
 
 ## Class API vs Function API
 
-For convenience, `graphemes++` provides `decompose` and `compose` as module-level functions. However, if you prefer object-oriented patterns, you can use the class methods directly:
+For convenience, `grapheme-kit` provides `decompose` and `compose` as module-level functions. However, if you prefer object-oriented patterns, you can use the class methods directly:
 
 ```python
 from graphemes_plusplus.decomposer import Decomposer, Composer

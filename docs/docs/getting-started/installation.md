@@ -7,7 +7,7 @@
 
 ## Install from Source
 
-Currently, the recommended way to install `graphemes++` is by cloning the repository and syncing dependencies via `uv`.
+Currently, the recommended way to install `grapheme-kit` is by cloning the repository and syncing dependencies via `uv`. This will set up the library and install both the `graphemes-plusplus` and `gpp` command line executables.
 
 ```bash
 git clone https://github.com/vmenan/graphemes_plusplus.git
@@ -28,6 +28,22 @@ print(g.graphemes)
 ```
 
 If you see the output above without any errors, the installation was successful.
+
+### Verify the CLI
+
+You can also verify that the command-line interface was successfully installed and is available in your environment:
+
+```bash
+gpp --help
+```
+
+Or using the long alias:
+
+```bash
+graphemes-plusplus --help
+```
+
+Both commands should print the help text detailing the available subcommands and options.
 
 ## Dependencies
 

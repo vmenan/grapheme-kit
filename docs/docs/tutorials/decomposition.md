@@ -74,6 +74,14 @@ print(result)
 # Output: கி
 ```
 
----
+## Summary
 
-**Next:** [Measuring Quality with Metrics](metrics.md)
+You have completed the tutorial series. Here is what you covered:
+
+1. The difference between code points and graphemes, and why it matters for evaluation.
+2. Why grapheme-aware metrics complement -- rather than replace -- chrF, chrF++, CER, and CharBLEU, and produce identical results for scripts where code points and graphemes already coincide.
+3. How the `Graphemizer` pipeline works internally.
+4. How to segment Tamil conjuncts and Sinhala ZWJ sequences correctly.
+5. How to decompose and compose graphemes for phonetic manipulation.
+
+**Continue to:** [NLP Evaluation](../how-to/nlp-evaluation.md) for practical task-specific recipes.

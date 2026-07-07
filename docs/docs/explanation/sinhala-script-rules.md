@@ -1,6 +1,8 @@
 # Sinhala Script Rules
 
-This page explains the theoretical foundation behind the Sinhala grapheme handling and ZWJ logic used in `graphemes++`.
+This page explains the theoretical foundation behind the Sinhala grapheme handling and ZWJ logic used in `grapheme-kit`.
+
+This page covers script-specific corrections layered on top of the universal grapheme engine described in [System Architecture](system-architecture.md) -- segmentation, metrics, and distance all work on any language; this page is about the extra accuracy `grapheme-kit` adds specifically for Sinhala.
 
 ## Sinhala Script Anatomy
 
@@ -19,7 +21,7 @@ Our `Decomposer` and `Composer` utilities rely on an internal mapping to seamles
 | `ඇ` | `ැ` |
 | `ඊ` | `ී` |
 
-*(This is a partial list. `graphemes++` handles all 18 mapped vowels).*
+*(This is a partial list. `grapheme-kit` handles all 18 mapped vowels).*
 
 ## Zero-Width Joiner (ZWJ)
 
@@ -32,7 +34,7 @@ Standard grapheme splitters often break strings at the ZWJ boundary, which destr
 
 ### ZWJ Cluster Merging Logic
 
-`graphemes++` maintains a list of valid Sinhala ZWJ sequences (e.g., `ක්ව්`, `ක්ෂ්`, `ර්`). When the `GraphemeSplitter` encounters a ZWJ, it looks ahead to see if the adjacent characters form a known sequence.
+`grapheme-kit` maintains a list of valid Sinhala ZWJ sequences (e.g., `ක්ව්`, `ක්ෂ්`, `ර්`). When the `GraphemeSplitter` encounters a ZWJ, it looks ahead to see if the adjacent characters form a known sequence.
 
 ```mermaid
 graph TD

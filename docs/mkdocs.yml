@@ -1,5 +1,5 @@
-site_name: graphemes++
-site_description: A minimalistic grapheme segmentation library for Tamil and Sinhala scripts
+site_name: grapheme-kit
+site_description: A grapheme-aware toolkit for linguistically fair NLP evaluation, with deep Tamil and Sinhala script support
 site_author: vmenan
 site_url: https://vmenan.github.io/graphemes_plusplus/
 
@@ -8,6 +8,7 @@ repo_url: https://github.com/vmenan/graphemes_plusplus
 
 theme:
   name: material
+  custom_dir: overrides
   font:
     text: Outfit
     code: Roboto Mono
@@ -101,23 +102,25 @@ nav:
     - Quick Start: getting-started/quickstart.md
   - Tutorials:
     - Introduction: tutorials/introduction.md
+    - Measuring Quality: tutorials/metrics.md
     - Segmenting Text: tutorials/segmentation.md
     - Conjuncts and ZWJ: tutorials/conjuncts.md
     - Phonetic Decomposition: tutorials/decomposition.md
-    - Measuring Quality: tutorials/metrics.md
   - How-To Guides:
-    - Grapheme Segmentation: how-to/grapheme-segmentation.md
     - NLP Evaluation: how-to/nlp-evaluation.md
+    - Grapheme Segmentation: how-to/grapheme-segmentation.md
     - Phonetic Decomposition: how-to/decompose-phonetics.md
+    - Command Line Usage: how-to/cli-usage.md
   - API Reference:
+    - Metrics: reference/metrics.md
+    - Distance: reference/distance.md
     - Graphemizer: reference/graphemizer.md
     - Decomposer: reference/decomposer.md
     - Composer: reference/composer.md
-    - Distance: reference/distance.md
-    - Metrics: reference/metrics.md
   - Explanation:
+    - Evaluation Metrics: explanation/evaluation-metrics.md
+    - System Architecture: explanation/system-architecture.md
     - Tamil Script Rules: explanation/tamil-script-rules.md
     - Sinhala Script Rules: explanation/sinhala-script-rules.md
-    - Evaluation Metrics: explanation/evaluation-metrics.md
 
 copyright: Copyright &copy; 2025 - 2026 vmenan

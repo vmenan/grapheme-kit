@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&family=JetBrains+Mono:wght@700&display=swap');
 
 /* =========================================================
-   graphemes++ — Premium Documentation Design System
+   grapheme-kit — Premium Documentation Design System
    ========================================================= */
 
 :root {
@@ -52,6 +52,26 @@ body {
 [data-md-color-scheme="default"] .md-header__button,
 [data-md-color-scheme="default"] .md-source {
     color: #1B4D3E !important;
+}
+
+/* --- WORDMARK ("grapheme" bold + "Kit" bold, muted) -- matches the demo site's font-mono lockup --- */
+.gk-wordmark {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--md-primary-fg-color);
+}
+
+.gk-wordmark .gk-kit {
+    color: #94A3B8; /* slate-400, same muted tone the demo site uses */
+}
+
+[data-md-color-scheme="slate"] .gk-wordmark {
+    color: #E8F5EE;
+}
+
+[data-md-color-scheme="slate"] .gk-wordmark .gk-kit {
+    color: #64748B; /* slate-500, slightly dimmer against the dark background */
 }
 
 /* --- TABS (glass effect) --- */
