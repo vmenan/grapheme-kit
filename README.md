@@ -4,11 +4,17 @@ A minimalistic grapheme segmentation library for Tamil and Sinhala scripts.
 
 ## Installation
 
-Clone the repository and install dependencies:
+Install from PyPI:
+
+```bash
+pip install graphemes-plusplus
+```
+
+For development, clone the repository and install with [uv](https://docs.astral.sh/uv/):
 
 ```bash
 git clone https://github.com/vmenan/graphemes_plusplus.git
-cd graphemes-plusplus
+cd graphemes_plusplus
 uv sync
 ```
 
@@ -50,3 +56,17 @@ uv sync
 >>> normalize_file("input.txt", "output.txt")
 'output.txt'
 ```
+
+### Command line
+
+Installing the package also provides the `graphemes-plusplus` command (short alias `gpp`):
+
+```bash
+gpp graphemize "ஸ்ரீ வணக்கம்" --count        # Tamil
+gpp graphemize "ශ්‍රී ලංකාව" --count          # Sinhala
+gpp distance "ஸ்ரீ" "ஸ்ரி" --level both
+gpp evaluate "நல்ல மாணவன்" "நல்ல" --metric chrf
+echo "ශ්‍රී" | gpp decompose --round-trip      # stdin works too
+```
+
+Use `gpp --help` (or `gpp <command> --help`) for the full list of commands and options.

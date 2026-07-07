@@ -1,21 +1,69 @@
 [project]
 name = "graphemes-plusplus"
 version = "0.1.0"
-description = "Add your description here"
+description = "Grapheme-aware segmentation, distance, and evaluation toolkit for Tamil and Sinhala scripts"
 readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [
     { name = "vmenan", email = "themachinequest@gmail.com" }
 ]
-requires-python = ">=3.14"
+keywords = [
+    "grapheme",
+    "graphemes",
+    "tamil",
+    "sinhala",
+    "unicode",
+    "nlp",
+    "segmentation",
+    "tokenization",
+    "chrf",
+    "cer",
+    "edit-distance",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Text Processing :: Linguistic",
+]
 dependencies = [
     "grapheme>=0.6.0",
     "sacrebleu>=2.6.0",
     "textdistance>=4.6.3",
-    "sacrebleu>=2.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/vmenan/graphemes_plusplus"
+Repository = "https://github.com/vmenan/graphemes_plusplus"
+Issues = "https://github.com/vmenan/graphemes_plusplus/issues"
+
+[project.scripts]
+graphemes-plusplus = "graphemes_plusplus.cli:main"
+gpp = "graphemes_plusplus.cli:main"
+
+[project.optional-dependencies]
+docs = [
     "mkdocs>=1.6.1",
     "mkdocs-material>=9.7.6",
+    "jupyter>=1.1.1",
+    "ipykernel>=6.30.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
 ]
 
 [build-system]
-requires = ["uv_build>=0.9.6,<0.10.0"]
+requires = ["uv_build>=0.9.6,<0.12.0"]
 build-backend = "uv_build"
+
