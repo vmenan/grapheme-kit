@@ -1,7 +1,7 @@
 import pytest
 
-from graphemes_plusplus.decomposer import decompose
-from graphemes_plusplus.composer import Composer, compose
+from grapheme_kit.decomposer import decompose
+from grapheme_kit.composer import Composer, compose
 
 
 class TestComposer:

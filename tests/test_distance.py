@@ -1,7 +1,7 @@
 import pytest
 
-from graphemes_plusplus.distance import hamming, levenshtein, damerau_levenshtein, jaro, jaro_winkler, longest_common_subsequence
-from graphemes_plusplus.metric import charbleu
+from grapheme_kit.distance import hamming, levenshtein, damerau_levenshtein, jaro, jaro_winkler, longest_common_subsequence
+from grapheme_kit.metric import charbleu
 
 
 class TestLevenshtein:

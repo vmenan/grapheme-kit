@@ -1,6 +1,6 @@
 import textdistance
 
-from graphemes_plusplus.graphemizer import Graphemizer
+from grapheme_kit.graphemizer import Graphemizer
 
 
 def levenshtein(s1: str, s2: str) -> int:
