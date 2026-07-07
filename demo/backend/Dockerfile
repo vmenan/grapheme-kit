@@ -15,7 +15,7 @@ ENV PYTHONUNBUFFERED=1 \
 WORKDIR /app
 
 # 1) Install the library (and its scientific deps) from the repo root.
-COPY pyproject.toml README.md ./
+COPY pyproject.toml README.md LICENSE ./
 COPY src ./src
 RUN pip install --upgrade pip && pip install .
 
