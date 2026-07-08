@@ -1,6 +1,6 @@
 import pytest
 
-from graphemes_plusplus.decomposer import Decomposer, decompose
+from grapheme_kit.decomposer import Decomposer, decompose
 
 
 class TestDecomposer:

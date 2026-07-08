@@ -2,8 +2,8 @@ from typing import List, Sequence, Optional, Dict, Union
 from collections import Counter
 from sacrebleu.metrics.chrf import CHRF
 from sacrebleu.metrics.helpers import extract_word_ngrams
-from graphemes_plusplus.distance import levenshtein
-from graphemes_plusplus.graphemizer import Graphemizer
+from grapheme_kit.distance import levenshtein
+from grapheme_kit.graphemizer import Graphemizer
 from collections import Counter
 import math
 

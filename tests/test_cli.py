@@ -1,8 +1,8 @@
-"""Tests for the graphemes_plusplus command-line interface.
+"""Tests for the grapheme_kit command-line interface.
 
 Most tests drive ``cli.main(argv)`` in-process and capture stdout/stderr with
 ``capsys`` for speed; a couple of subprocess smoke tests exercise the real
-``python -m graphemes_plusplus`` entry point and stdin piping.
+``python -m grapheme_kit`` entry point and stdin piping.
 """
 
 import io
@@ -12,8 +12,8 @@ import sys
 
 import pytest
 
-from graphemes_plusplus.cli import main
-from graphemes_plusplus.metric import CER, GraphemeCHRF
+from grapheme_kit.cli import main
+from grapheme_kit.metric import CER, GraphemeCHRF
 
 
 def run(argv, capsys, stdin=None, monkeypatch=None):
@@ -109,7 +109,7 @@ class TestDecomposeCompose:
         assert data["round_trip_ok"] is True
 
     def test_compose_inverse_of_decompose(self, capsys):
-        from graphemes_plusplus import compose, decompose
+        from grapheme_kit import compose, decompose
 
         text = "வணக்கம்"
         code, out, _ = run(["compose", decompose(text)], capsys)
@@ -123,7 +123,7 @@ class TestMisc:
         with pytest.raises(SystemExit) as exc:
             main(["--version"])
         assert exc.value.code == 0
-        assert "graphemes-plusplus" in capsys.readouterr().out
+        assert "grapheme-kit" in capsys.readouterr().out
 
     def test_no_command_errors(self, capsys):
         with pytest.raises(SystemExit) as exc:
@@ -135,7 +135,7 @@ class TestMisc:
 class TestEntryPoint:
     def test_module_invocation(self):
         result = subprocess.run(
-            [sys.executable, "-m", "graphemes_plusplus", "graphemize", "ஸ்ரீ", "--count"],
+            [sys.executable, "-m", "grapheme_kit", "graphemize", "ஸ்ரீ", "--count"],
             capture_output=True, encoding="utf-8",
         )
         assert result.returncode == 0
@@ -145,7 +145,7 @@ class TestEntryPoint:
 
     def test_stdin_pipe(self):
         result = subprocess.run(
-            [sys.executable, "-m", "graphemes_plusplus", "graphemize", "--count"],
+            [sys.executable, "-m", "grapheme_kit", "graphemize", "--count"],
             input="ஸ்ரீ", capture_output=True, encoding="utf-8",
         )
         assert result.returncode == 0

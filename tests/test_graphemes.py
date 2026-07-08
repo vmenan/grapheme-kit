@@ -3,7 +3,7 @@ import pytest
 import random
 import re
 from pathlib import Path
-from graphemes_plusplus.graphemizer import Graphemizer
+from grapheme_kit.graphemizer import Graphemizer
 
 
 class TestGraphemizer:

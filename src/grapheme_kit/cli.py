@@ -1,4 +1,4 @@
-"""Command-line interface for ``graphemes_plusplus``.
+"""Command-line interface for ``grapheme_kit``.
 
 Exposes the library's grapheme-aware tools as a small, dependency-free subcommand
 CLI built on :mod:`argparse`. Every number it prints comes straight from the
@@ -7,11 +7,11 @@ already library dependencies), so the CLI has parity with the demo website.
 
 Examples
 --------
-    graphemes-plusplus graphemize "ஸ்ரீ வணக்கம்" --count
-    graphemes-plusplus decompose "வணக்கம்" --round-trip
-    graphemes-plusplus distance "ஸ்ரீ" "ஸ்ரி" --measure levenshtein --level both
-    graphemes-plusplus evaluate "நல்ல மாணவன்" "நல்ல" --metric chrf
-    graphemes-plusplus normalize --input raw.txt --output clean.txt
+    grapheme-kit graphemize "ஸ்ரீ வணக்கம்" --count
+    grapheme-kit decompose "வணக்கம்" --round-trip
+    grapheme-kit distance "ஸ்ரீ" "ஸ்ரி" --measure levenshtein --level both
+    grapheme-kit evaluate "நல்ல மாணவன்" "நல்ல" --metric chrf
+    grapheme-kit normalize --input raw.txt --output clean.txt
 
 Every command reads from a positional ``TEXT`` argument, ``--input FILE`` or
 stdin, and writes to stdout (or ``--output FILE``) as human-readable text or, with
@@ -28,12 +28,12 @@ from typing import Optional, Sequence
 import textdistance
 from sacrebleu.metrics import CHRF as StdCHRF
 
-from graphemes_plusplus import Graphemizer, compose, decompose, hamming, levenshtein
-from graphemes_plusplus.metric import CER, GraphemeCHRF
-from graphemes_plusplus.utils.file_utils import normalize_file
-from graphemes_plusplus.utils.normalizer import Normalizer
+from grapheme_kit import Graphemizer, compose, decompose, hamming, levenshtein
+from grapheme_kit.metric import CER, GraphemeCHRF
+from grapheme_kit.utils.file_utils import normalize_file
+from grapheme_kit.utils.normalizer import Normalizer
 
-PROG = "graphemes-plusplus"
+PROG = "grapheme-kit"
 
 
 class CLIError(Exception):
@@ -45,7 +45,7 @@ def _version() -> str:
     try:
         from importlib.metadata import version
 
-        return version("graphemes-plusplus")
+        return version("grapheme-kit")
     except Exception:  # pragma: no cover - best effort only
         return "0.1.0"
 
@@ -358,15 +358,16 @@ def _cmd_normalize(args: argparse.Namespace) -> int:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog=PROG,
-        description="Grapheme-aware toolkit for Tamil and Sinhala: segmentation, "
-        "decomposition/composition, distance and evaluation metrics.",
+        description="Grapheme-aware toolkit for segmenting, comparing, and evaluating text "
+        "across any script or language.",
         epilog=(
             "examples:\n"
-            f"  {PROG} graphemize \"ஸ்ரீ வணக்கம்\" --count\n"
-            f"  {PROG} graphemize \"ශ්‍රී ලංකාව\" --count\n"
-            f"  {PROG} distance \"ஸ்ரீ\" \"ஸ்ரி\" --level both\n"
-            f"  {PROG} evaluate \"நல்ல மாணவன்\" \"நல்ல\" --metric chrf\n"
-            f"  echo \"ශ්‍රී\" | {PROG} decompose --round-trip\n"
+            f"  {PROG} graphemize \"\u0645\u064e\u0631\u062d\u064e\u0628\u064b\u0627\" --count\n"
+            f"  {PROG} graphemize \"\u05e9\u05c1\u05b8\u05dc\u05d5\u05b9\u05dd\" --count\n"
+            f"  {PROG} distance \"\u0645\u064e\u0631\u062d\u064e\u0628\u064b\u0627\" \"\u0645\u064e\u0631\u062d\u064e\u0628\u064e\u0627\" --level both\n"
+            f"  {PROG} evaluate \"the quick brown fox\" \"the quick red fox\" --metric chrf\n"
+            f"  echo \"\u05e9\u05c1\u05b8\u05dc\u05d5\u05b9\u05dd\" | {PROG} graphemize --count\n"
+            f"  {PROG} decompose \"\u0bb5\u0ba3\u0b95\u0bcd\u0b95\u0bae\u0bcd\" --round-trip\n"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )

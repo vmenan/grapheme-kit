@@ -1,5 +1,5 @@
 import os
-from graphemes_plusplus.utils.normalizer import Normalizer
+from grapheme_kit.utils.normalizer import Normalizer
 
 
 def normalize_file(input_path: str, output_path: str | None = None) -> str:
