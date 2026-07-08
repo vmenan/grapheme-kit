@@ -121,7 +121,3 @@ gkit decompose "வண்ගම්" --round-trip
 Use `gkit --help` or `gkit <command> --help` for the full list of commands and options.
 
 ---
-
-## Documentation
-
-Full documentation, guides, and API reference: [vmenan.github.io/grapheme-kit](https://vmenan.github.io/grapheme-kit)
