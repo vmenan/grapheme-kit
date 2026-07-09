@@ -6,7 +6,7 @@ Grapheme-cluster-aware segmentation, string distance, and evaluation metrics for
 [![Python](https://img.shields.io/pypi/pyversions/grapheme-kit)](https://pypi.org/project/grapheme-kit/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-**[Live Demo](https://grapheme-kit.pages.dev/graphemizer/) · [Documentation](https://grapheme-kit-docs.pages.dev)**
+**[Live Demo](https://grapheme-kit.pages.dev) · [Documentation](https://grapheme-kit-docs.pages.dev)**
 
 ---
 
