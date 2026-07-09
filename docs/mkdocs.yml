@@ -1,4 +1,4 @@
-site_name: GraphemesKit - Documentation
+site_name: grapheme-kit - Documentation
 site_description: A grapheme-aware toolkit for linguistically fair NLP evaluation, with deep Tamil and Sinhala script support
 site_author: vmenan
 site_url: https://vmenan.github.io/grapheme-kit/
