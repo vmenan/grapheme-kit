@@ -4,7 +4,7 @@ import { TopNav } from "@/components/TopNav";
 import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "graphemeKit",
+  title: "grapheme-kit",
   description:
     "Grapheme-aware segmentation, evaluation metrics (chrF, chrF++, CER, CharBLEU), distance measures, and Tamil/Sinhala decomposition and composition.",
 };

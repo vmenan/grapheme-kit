@@ -41,7 +41,7 @@ export default function GraphemizerPage() {
     <div className="py-2">
       <h1 className="text-2xl font-bold text-ink">Graphemizer</h1>
       <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-        How graphemeKit clusters text into visually-perceived characters,
+        How grapheme-kit clusters text into visually-perceived characters,
         compared with the raw unicode-point count.
       </p>
 
@@ -65,7 +65,7 @@ export default function GraphemizerPage() {
             <div className="mt-4 grid grid-cols-2 gap-3">
               <CountCard
                 title="Graphemes"
-                subtitle="graphemeKit"
+                subtitle="grapheme-kit"
                 value={result.count}
                 strong
               />
@@ -99,7 +99,7 @@ export default function GraphemizerPage() {
           {result && (
             <>
               <Section
-                title="Grapheme clusters (graphemeKit)"
+                title="Grapheme clusters (grapheme-kit)"
                 subtitle={`${result.count} graphemes`}
               >
                 <GraphemeChips graphemes={result.graphemes} />

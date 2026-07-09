@@ -204,6 +204,22 @@ def _metric_rows_sentence(reference: str, hypothesis: str) -> list[dict]:
             "higher_better": False,
         },
         {
+            "key": "grapheme_hamming",
+            "label": "Hamming",
+            "family": "Hamming",
+            "level": "grapheme",
+            "value": hamming(reference, hypothesis),
+            "higher_better": False,
+        },
+        {
+            "key": "codepoint_hamming",
+            "label": "Hamming",
+            "family": "Hamming",
+            "level": "codepoint",
+            "value": textdistance.hamming.distance(reference, hypothesis),
+            "higher_better": False,
+        },
+        {
             "key": "grapheme_jaro",
             "label": "Jaro",
             "family": "Jaro",

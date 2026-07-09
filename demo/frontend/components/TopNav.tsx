@@ -18,7 +18,7 @@ export function TopNav() {
         <Link href="/" className="flex items-baseline gap-2">
           <span className="font-mono text-xl font-bold tracking-tight text-ink">
             grapheme
-            <span className="text-slate-400">Kit</span>
+            <span className="text-slate-400">-kit</span>
           </span>
         </Link>
         <div className="flex items-center gap-2">

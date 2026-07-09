@@ -28,7 +28,7 @@ export default function Home() {
   return (
     <div className="py-6">
       <h1 className="font-mono text-4xl font-bold tracking-tight text-ink">
-        grapheme<span className="text-slate-400">Kit</span>
+        grapheme<span className="text-slate-400">-kit</span>
       </h1>
       <p className="mt-3 max-w-2xl text-lg text-slate-600 dark:text-slate-400">
         A grapheme-aware toolkit for segmenting, comparing, and evaluating text.
