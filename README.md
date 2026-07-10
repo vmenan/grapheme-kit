@@ -54,6 +54,7 @@ Split text from any script into correct grapheme clusters:
 ```python
 from grapheme_kit import Graphemizer
 
+# Hindi
 g = Graphemizer("किताब")
 g.graphemes   # ['कि', 'ता', 'ब']
 len(g)        # 3
