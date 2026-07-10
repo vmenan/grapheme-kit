@@ -1,6 +1,6 @@
 # grapheme-kit
 
-Grapheme-cluster-aware segmentation, string distance, and evaluation metrics for any language.
+Grapheme-aware evaluation metrics and text processing utilities for any language.
 
 [![PyPI](https://img.shields.io/pypi/v/grapheme-kit)](https://pypi.org/project/grapheme-kit/)
 [![Python](https://img.shields.io/pypi/pyversions/grapheme-kit)](https://pypi.org/project/grapheme-kit/)
