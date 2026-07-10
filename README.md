@@ -19,13 +19,15 @@ Unicode text is complex: a single *visible* character (grapheme cluster) often s
 ```python
 from grapheme_kit import Graphemizer
 
+# Burmese
 g = Graphemizer("ကျွန်ုပ်")
-len("ကျွန်ုပ်")  # 8 code points (naive)
+len("ကျွန်ုပ်")     # 8 code points (naive)
 len(g)           # 3 grapheme clusters (correct)
 
-g = Graphemizer("مَرْحَبًا")
-len("مَرْحَبًا")  # 9 code points (naive)
-len(g)           # 5 grapheme clusters (correct)
+# Bengali
+g = Graphemizer("নমস্কার")
+len("নমস্কার")    # 5 code points (naive)
+len(g)           # 7 grapheme clusters (correct)
 ```
 
 ---
@@ -52,6 +54,7 @@ Split text from any script into correct grapheme clusters:
 ```python
 from grapheme_kit import Graphemizer
 
+# Hindi
 g = Graphemizer("किताब")
 g.graphemes   # ['कि', 'ता', 'ब']
 len(g)        # 3
