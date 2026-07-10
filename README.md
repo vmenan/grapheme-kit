@@ -6,6 +6,8 @@ Grapheme-cluster-aware segmentation, string distance, and evaluation metrics for
 [![Python](https://img.shields.io/pypi/pyversions/grapheme-kit)](https://pypi.org/project/grapheme-kit/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
+**[Live Demo](https://grapheme-kit.pages.dev) · [Documentation](https://grapheme-kit-docs.pages.dev)**
+
 ---
 
 ## Why grapheme-kit?
@@ -17,12 +19,12 @@ Unicode text is complex: a single *visible* character (grapheme cluster) often s
 ```python
 from grapheme_kit import Graphemizer
 
-g = Graphemizer("ක්‍රීඩාව")
-len("ක්‍රීඩාව")  # 8 code points (naive)
-len(g)          # 3 grapheme clusters (correct)
+g = Graphemizer("ကျွန်ုပ်")
+len("ကျွန်ုပ်")  # 8 code points (naive)
+len(g)           # 3 grapheme clusters (correct)
 
 g = Graphemizer("مَرْحَبًا")
-len("مَرْحَبًا")  # 8 code points (naive)
+len("مَرْحَبًا")  # 9 code points (naive)
 len(g)           # 5 grapheme clusters (correct)
 ```
 
@@ -50,15 +52,14 @@ Split text from any script into correct grapheme clusters:
 ```python
 from grapheme_kit import Graphemizer
 
-# Tamil
-g = Graphemizer("ஸ்ரீ வணக்கம்")
-g.graphemes   # ['ஸ்ரீ', ' ', 'வ', 'ண', 'க்', 'க', 'ம்']
-len(g)        # 7
+g = Graphemizer("किताब")
+g.graphemes   # ['कि', 'ता', 'ब']
+len(g)        # 3
 
-# Sinhala
-g = Graphemizer("ශ්‍රී ලංකාව")
-g.graphemes   # ['ශ්\u200dරී', ' ', 'ලං', 'කා', 'ව']
-len(g)        # 5
+# Burmese
+g = Graphemizer("ကျွန်ုပ်")
+g.graphemes   # ['ကျွ', 'န်ု', 'ပ်']
+len(g)        # 3
 ```
 
 ### String Distance
@@ -70,8 +71,11 @@ from grapheme_kit.distance import jaro_winkler, damerau_levenshtein
 # Hebrew
 levenshtein("שָׁלוֹם", "שָׁלוֹב")          # 1 (only one cluster differs)
 
-# Tamil
-levenshtein("ஸ்ரீ", "ஸ்ரி")          # 2 (properly counts grapheme edits)
+# Arabic 
+levenshtein("مُعَلِّمٌ", "مُعَلِّمُ")          # 1 (diacritic-level edit, one grapheme)
+
+# Hindi
+levenshtein("किताब", "कताब")          # 1 (one grapheme cluster removed)
 
 # Latin/English
 levenshtein("kitten", "sitting")       # 3
@@ -111,13 +115,28 @@ The package exposes a `grapheme-kit` executable with a short alias `gkit`:
 
 ```bash
 gkit graphemize "مَرْحَبًا" --count
-gkit graphemize "שָׁלוֹם" --count
-gkit graphemize "ஸ்ரீ வணக்கம்" --count
-gkit distance "ஸ்ரீ" "ஸ்ரி" --level both
+gkit graphemize "किताब" --count
+gkit distance "שָׁלוֹם" "שָׁלוֹב" --level both
 gkit evaluate "நல்ல மாணவன்" "நல்ல" --metric chrf
-gkit decompose "வண்ගම්" --round-trip
+gkit decompose "ලංකාව" --round-trip
 ```
 
 Use `gkit --help` or `gkit <command> --help` for the full list of commands and options.
 
 ---
+
+## Documentation
+
+Full documentation, guides, and API reference: [grapheme-kit-docs.pages.dev](https://grapheme-kit-docs.pages.dev)
+
+Try it interactively in the [live demo](https://grapheme-kit.pages.dev/graphemizer/).
+
+---
+
+## Contributing
+
+Issues and pull requests are welcome. Please open an issue first for major changes.
+
+## License
+
+MIT © grapheme-kit contributors. See [LICENSE](LICENSE) for details.
