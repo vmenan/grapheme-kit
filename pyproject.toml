@@ -1,6 +1,6 @@
 [project]
 name = "grapheme-kit"
-version = "0.1.0"
+version = "0.1.1"
 description = "A grapheme-aware toolkit for segmenting, comparing, and evaluating text across any script or language"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -62,6 +62,12 @@ docs = [
 dev = [
     "pytest>=8.0",
 ]
+
+[tool.pytest.ini_options]
+# The library suite only. demo/backend has its own tests and its own
+# environment (FastAPI, httpx), which the library env deliberately does not
+# depend on -- run those with:  cd demo/backend && pytest tests
+testpaths = ["tests"]
 
 [build-system]
 requires = ["uv_build>=0.9.6,<0.12.0"]

@@ -27,6 +27,20 @@ class Decomposer:
     TAMIL_VOWELS = ["அ", "ஆ", "இ", "ஈ", "உ", "ஊ", "எ", "ஏ", "ஐ", "ஒ", "ஓ", "ஔ"]
     TAMIL_ACCENT_SYMBOLS = ["", "ா", "ி", "ீ", "ு", "ூ", "ெ", "ே", "ை", "ொ", "ோ", "ௌ"]
 
+    # Tamil consonants (mei) occupy U+0B95 (க) .. U+0BB9 (ஹ). Everything else
+    # in the Tamil block is not a consonant -- the aytham ஃ, the digits ௦-௯,
+    # the numeric signs ௰-௺, ௐ, and any combining sign standing on its own --
+    # so it has no mei + uyir split and decomposes to itself.
+    TAMIL_CONSONANT_FIRST = "க"
+    TAMIL_CONSONANT_LAST = "ஹ"
+
+    @classmethod
+    def _is_tamil_consonant(cls, char: str) -> bool:
+        """True if the grapheme is built on a Tamil consonant (mei)."""
+        return bool(char) and (
+            cls.TAMIL_CONSONANT_FIRST <= char[0] <= cls.TAMIL_CONSONANT_LAST
+        )
+
     @staticmethod
     def _is_sinhala(chars: str) -> bool:
         """Check if all characters in the string are Sinhala characters or ZWJ based on Unicode range."""
@@ -65,6 +79,10 @@ class Decomposer:
 
         if char in cls.TAMIL_VOWELS:
             return [char, ""]
+
+        # Already a complete grapheme with no consonant to split off: leave it be.
+        if not cls._is_tamil_consonant(char):
+            return [char]
 
         if len(char) == 1:
             return [char + base_char, cls.TAMIL_VOWELS[0]]
