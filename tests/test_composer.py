@@ -32,6 +32,26 @@ class TestComposer:
     def test_compose_preserves_ascii(self):
         assert compose("hello 123") == "hello 123"
 
+    def test_compose_aytham_unchanged(self):
+        assert compose("ஃ") == "ஃ"
+
+    @pytest.mark.parametrize("text", ["ஃ", "ஃபு", "அஃது", "எஃகு"])
+    def test_aytham_round_trip(self, text):
+        assert compose(decompose(text)) == text
+
+    def test_compose_keeps_multi_codepoint_conjunct(self):
+        """க்ஷ் is a two-consonant conjunct; composing it with a vowel must keep
+        the whole cluster, not just its first code point."""
+        assert compose("க்ஷ்அ") == "க்ஷ"
+        assert compose("க்ஷ்ஆ") == "க்ஷா"
+
+    @pytest.mark.parametrize(
+        "text",
+        ["க்ஷ", "க்ஷா", "க்ஷி", "க்ஷு", "ஸ்ரீ", "ஶ்ரீ", "ஸ்ரீதர்"],
+    )
+    def test_conjunct_round_trip(self, text):
+        assert compose(decompose(text)) == text
+
     def test_compose_preserves_tamil_punctuation(self):
         assert compose("க்இ, உலகம்!") == "கி, உலகம்!"
 

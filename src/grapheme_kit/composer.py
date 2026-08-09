@@ -44,7 +44,9 @@ class Composer:
             raise ValueError("Error! Not a valid mei character!")
 
         if uyir in cls.TAMIL_VOWELS:
-            return mei[0] + cls.TAMIL_ACCENT_SYMBOLS[cls.TAMIL_VOWELS.index(uyir)]
+            # Strip the trailing virama rather than keeping only the first code
+            # point, so multi-codepoint conjuncts (க்ஷ், ஸ்ர்) survive intact.
+            return mei[:-1] + cls.TAMIL_ACCENT_SYMBOLS[cls.TAMIL_VOWELS.index(uyir)]
         raise ValueError("Error! Cant be merged!")
 
     @classmethod
