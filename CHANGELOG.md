@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] - 2026-08-08
+
+### Fixed
+
+- **Tamil non-consonants are no longer split.** `decompose` treated every
+  character in the Tamil block as a consonant, appending a virama and `அ`. The
+  aytham `ஃ` became `ஃ்அ`, the digit `௧` became `௧்அ`, and the same applied to
+  `ௐ`, the numeric signs `௰`-`௺`, and any combining sign standing alone. Only
+  characters built on a Tamil consonant (mei, U+0B95 `க` .. U+0BB9 `ஹ`) are now
+  split into mei + uyir; anything else is already a complete grapheme and
+  decomposes to itself. Words such as `அஃது`, `எஃகு`, and `ஃபு` now report the
+  correct phonetic units.
+- **Multi-codepoint conjuncts survive composition.** `compose` rebuilt a
+  consonant cluster from its *first code point only*, so `க்ஷ` round-tripped to
+  `க` and silently lost the `ஷ`. It now strips the trailing virama instead of
+  truncating, keeping the whole cluster intact. This repairs the round trip for
+  the entire `க்ஷ` family (`க்ஷா`, `க்ஷி`, `க்ஷு`, ...) — 12 of the 353
+  graphemes in the Tamil test corpus previously failed to round-trip, and none
+  do now.
+
 ## [0.1.0] - 2026-07-07
 
 ### Added
