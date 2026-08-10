@@ -16,6 +16,8 @@ class GraphemeSplitter:
 
         if not string:
             return []
+        elif string==None:
+            return []
 
         # Optimization: Only run merge logic if problematic clusters exist
         #if not ("க்ஷ" in string or "ஸ்ரீ" in string or "ஶ்ரீ" in string):
