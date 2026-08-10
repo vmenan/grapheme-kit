@@ -2,7 +2,8 @@ from typing import List, Sequence, Optional, Dict, Union
 from collections import Counter
 from sacrebleu.metrics.chrf import CHRF
 from sacrebleu.metrics.helpers import extract_word_ngrams
-from grapheme_kit.distance import levenshtein
+#from grapheme_kit.distance import levenshtein
+from textdistance import levenshtein
 from grapheme_kit.graphemizer import Graphemizer
 from collections import Counter
 import math
@@ -132,10 +133,10 @@ def CER(hypothesis: str, reference: str) -> float:
     """
     hyp_graphemes = list(Graphemizer(hypothesis))
     ref_graphemes = list(Graphemizer(reference))
-    if len(ref_graphemes) == 0:
-        return 0.0 if len(hyp_graphemes) == 0 else 1.0
+    if len(reference) == 0:
+        return 0.0 if len(hypothesis) == 0 else 1.0
 
-    distance = levenshtein(hypothesis, reference)
+    distance = levenshtein.distance(hyp_graphemes, ref_graphemes)
     return distance / len(ref_graphemes)
 
 
